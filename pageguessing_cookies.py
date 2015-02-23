@@ -31,9 +31,17 @@ def pageGuessing():
 	pages = []
 	
 	for URL in URLList:
+		slashCount = URL.count('/')
+		for char in URL:
+			if slashCount == 0:
+				break
+			if x == '/':
+				i=i-1
+			URL2 += char
+		
 		for word in wordList:
 			for extension in URLExtensionList:
-				newURL = URL+word+extension
+				newURL = URL2+word+extension
 				r = requests.get(newURL)
 				if r.status_code == 200:
 					pages.append(newURL)
