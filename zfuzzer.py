@@ -69,7 +69,7 @@ def pageDiscovery(s):
 		# If the link isn't already in the queue and hasn't been looked at
 		for link in htmlLinks :
 			# If it's in the local domain... explore in detail later
-			if htmlLinks[link] and link not in q and link not in explored :
+			if htmlLinks[link] and link not in links and link not in explored :
 				links.append(link)
 
 def linkDiscovery(s,url):
@@ -77,11 +77,10 @@ def linkDiscovery(s,url):
     print "URL: " + url
     response = s.get(url)
     html = BeautifulSoup(response.text)
-    print html
     # extract the links
     retVal = {}
     urlParts = urlparse.urlparse(url)
-    for tag in html.find_all('a') :
+    for tag in html.findAll('a') :
         link = tag.get('href')
         if link is None :
             continue
