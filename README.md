@@ -9,7 +9,7 @@ Create your own branch and do ALL work on THAT BRANCH
 Once you have completed and tested all of your changes, make a pull request, if you do not know how to do that, ask me and i will personally show you.
 
 # setup
-In order to setup the fuzzer follow these instructions
+In order to setup the fuzzer follow these instructions (using python 2.7 if possible)
 
 1.) Follow the instructions to setup the local xampp instance <a href="http://yogi.se.rit.edu/~swen-331/activities/webapps.html">here</a>
 
