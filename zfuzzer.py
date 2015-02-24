@@ -7,7 +7,7 @@ import urlparse
 import sys
 import unicodedata
 
-EXT = ('.doc', '.pdf', '.ppt', '.jpg', '.jpeg', '.png', '.gif', '.docx', '.pptx', '.tif', '.tiff', '.zip', '.rar', '.7zip', '.mov', '.ps', '.avi', '.mp3', '.mp4', '.txt', '.wav', '.midi')
+EXT = ('.doc', '.pdf', '.ppt', '.php', '.html', '.jpg', '.jpeg', '.png', '.gif', '.docx', '.pptx', '.tif', '.tiff', '.zip', '.rar', '.7zip', '.mov', '.ps', '.avi', '.mp3', '.mp4', '.txt', '.wav', '.midi')
 links = []
 explored = {}
 urlInputs = []
@@ -48,7 +48,6 @@ def main():
 				s = auth(s)
 		pageDiscovery(s)
         pageGuessing(s)
-        print cookies(s)
 
 def auth(s):
 	if   (args['customAuth'] == 'dvwa'):
@@ -116,6 +115,7 @@ def pageGuessing(s):
 
     pages = []
     for URL in explored.keys():
+        print 'guessing for ' + URL
         slashCount = URL.count('/')
         URL2=''
         for char in URL:
@@ -128,14 +128,11 @@ def pageGuessing(s):
         for word in wordList:
             for extension in EXT:
                 newURL = URL2+word+extension
-                r = requests.get(newURL)
+                r = s.get(newURL)
                 if r.status_code == 200:
                     pages.append(newURL)
                     print(newURL)
     return pages
-
-def inputDiscovery(s,url):
-	return
 
 def parseURL(url, dict) :
     print "parsing..."
@@ -155,7 +152,7 @@ def parseURL(url, dict) :
 
     return dict
 
-def formParameters(url, dict):
+def formParameters(s, url, dict):
 
     urlSplit = re.split("[=?&]",url)  #Split on URL params
     baseUrl = urlSplit[0]   #This is the base URL
