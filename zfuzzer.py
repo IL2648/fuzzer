@@ -1,5 +1,11 @@
 import sys
 import requests
+from collections import deque
+import requests
+from BeautifulSoup import *
+import urlparse
+import sys
+import unicodedata
 
 EXT = ('.doc', '.pdf', '.ppt', '.jpg', '.jpeg', '.png', '.gif', '.docx', '.pptx', '.tif', '.tiff', '.zip', '.rar', '.7zip', '.mov', '.ps', '.avi', '.mp3', '.mp4', '.txt', '.wav', '.midi')
 links = []
@@ -51,29 +57,27 @@ def auth(s):
 	print 'the custom authentication for ' + args['customAuth'] + ' does not exist'
 
 def pageDiscovery(s):
-	return
-	'''print("Running...")
+	print("Running...")
 	# For each link, find "children" links
-	pageGuessing(s)
 	while len(links) > 0 :
 		# get the next link
-		url = links.popleft()
+		url = links.pop(0)
+		pageGuessing(s,url)
 		explored[url] = 1
 		# get "Child" links
-		htmlLinks = linkDiscovery(url)
+		htmlLinks = linkDiscovery(s,url)
 		# If the link isn't already in the queue and hasn't been looked at
 		for link in htmlLinks :
 			# If it's in the local domain... explore in detail later
 			if htmlLinks[link] and link not in q and link not in explored :
-				links.append(link)'''
+				links.append(link)
 
 def linkDiscovery(s,url):
-	return
-	'''# Get, then parse the HTML source
+	# Get, then parse the HTML source
     print "URL: " + url
     response = s.get(url)
     html = BeautifulSoup(response.text)
-
+    print html
     # extract the links
     retVal = {}
     urlParts = urlparse.urlparse(url)
@@ -98,7 +102,7 @@ def linkDiscovery(s,url):
         else :
             retVal[link] = 0
 
-    return retVal'''
+    return retVal
 
 def pageGuessing(s,url):
 	return
