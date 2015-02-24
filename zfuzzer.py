@@ -105,7 +105,32 @@ def linkDiscovery(s,url):
     return retVal
 
 def pageGuessing(s,url):
-	return
+    print('Running page guessing...')
+
+    #Read the list of commond words
+    with open(args['commonWords']) as f:
+        if(f):
+            wordList = f.read().splitlines()
+
+    pages = []
+    for URL in links:
+        slashCount = URL.count('/')
+        URL2=''
+        for char in URL:
+            if slashCount == 0:
+                break
+            if char == '/':
+                slashCount=slashCount-1
+            URL2 += char
+
+        for word in wordList:
+            for extension in EXT:
+                newURL = URL2+word+extension
+                r = requests.get(newURL)
+                if r.status_code == 200:
+                    pages.append(newURL)
+                    print(newURL)
+    return pages
 
 def inputDiscovery(s,url):
 	return
