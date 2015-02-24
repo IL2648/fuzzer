@@ -50,9 +50,9 @@ def main():
         urlInputDict ={}
         formInputDict={}
         pageDiscovery(s,urlInputDict,formInputDict)
+        inputDiscoveryPrinting(urlInputDict, formInputDict)
         pageGuessing(s)
         print cookies(s)
-        inputDiscoveryPrinting(urlInputDict, formInputDict)
 
 def auth(s):
 	if   (args['customAuth'] == 'dvwa'):
@@ -175,7 +175,7 @@ def parseURL(s, url, dict) :
 def formParameters(s, url, dict):
 
     urlSplit = re.split("[=?&]",url)  #Split on URL params
-    baseUrl = urlSplit[0]   #This is the base URL
+    baseUrl = urlSplit[0].encode("ascii")   #This is the base URL
 
     r = requests.get(url)
     inputElements = re.findall("<input.*?/>",r.content) #Find all "input" elements using a non-greedy regex
