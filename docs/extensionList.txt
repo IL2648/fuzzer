@@ -1,6 +1,0 @@
-.php
-.jsp
-.htm
-.html
-.asp
-.asps
