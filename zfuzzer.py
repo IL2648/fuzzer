@@ -46,7 +46,11 @@ def main():
 		with requests.Session() as s:
 			if(args['customAuth']):
 				s = auth(s)
-		pageDiscovery(s)
+
+        urlInputDict ={}
+        formInputDict={}
+        pageDiscovery(s,urlInputDict,formInputDict)
+        inputDiscoveryPrinting(urlInputDict, formInputDict)
         pageGuessing(s)
 
 def auth(s):
@@ -57,20 +61,22 @@ def auth(s):
 		return s
 	print 'the custom authentication for ' + args['customAuth'] + ' does not exist'
 
-def pageDiscovery(s):
-	print("Running...")
+def pageDiscovery(s, urlInputDict, formInputDict):
+    print("Running...")
 	# For each link, find "children" links
-	while len(links) > 0 :
-		# get the next link
-		url = links.pop(0)
-		explored[url] = 1
-		# get "Child" links
-		htmlLinks = linkDiscovery(s,url)
-		# If the link isn't already in the queue and hasn't been looked at
-		for link in htmlLinks :
-			# If it's in the local domain... explore in detail later
-			if htmlLinks[link] and link not in links and link not in explored :
-				links.append(link)
+    while len(links) > 0 :
+        # get the next link
+        url = links.pop(0)
+        explored[url] = 1
+        # get "Child" links
+        htmlLinks = linkDiscovery(s,url)
+        parseURL(s,url,urlInputDict)
+        formParameters(s,url, formInputDict)
+        # If the link isn't already in the queue and hasn't been looked at
+        for link in htmlLinks :
+            # If it's in the local domain... explore in detail later
+            if htmlLinks[link] and link not in links and link not in explored :
+                links.append(link)
                 explored[link] = 0
 
 def linkDiscovery(s,url):
@@ -134,7 +140,21 @@ def pageGuessing(s):
                     print(newURL)
     return pages
 
-def parseURL(url, dict) :
+def inputDiscoveryPrinting(urlParsingDict, formParsingDict):
+    print "***Inputs parsed through URLS***"
+    for k,v in urlParsingDict.iteritems():
+        print k + ":"
+        for x in range(0, len(v)):
+            print "    " + v[x]
+
+    print "***Input Field Names from Forms***"
+    for k,v in formParsingDict.iteritems():
+        print k + ":"
+        for x in range(0, len(v)):
+            print "    " + v[x]
+	return
+
+def parseURL(s, url, dict) :
     print "parsing..."
     print
     result = re.split("[=?&]",url)  #Split on URL params
@@ -155,7 +175,7 @@ def parseURL(url, dict) :
 def formParameters(s, url, dict):
 
     urlSplit = re.split("[=?&]",url)  #Split on URL params
-    baseUrl = urlSplit[0]   #This is the base URL
+    baseUrl = urlSplit[0].encode("ascii")   #This is the base URL
 
     r = requests.get(url)
     inputElements = re.findall("<input.*?/>",r.content) #Find all "input" elements using a non-greedy regex
@@ -163,17 +183,13 @@ def formParameters(s, url, dict):
     for x in range(0, len(inputElements)):
         if "name=\"" in inputElements[x]: #Check to see if the result contains a "name" attribute
             inputName = re.findall("name=\"(.*?)\"", inputElements[x]) #Get a list that only contains the value of the "name" attribute
-            print inputName
-
+            inputName = inputName.pop()
             if baseUrl in dict :  #If this URL is already in the dictionary...
                 checkList = dict[baseUrl] #Put any already created params in a temp list
                 if inputName not in checkList : #Check if item we're trying to add is in that temp list
-                    dict[baseUrl].append(result[x])
+                    dict[baseUrl].append(inputName)
             else :
-                 dict[baseUrl] = inputName
-
-
-
+                 dict[baseUrl] = [inputName]
     return dict
 
 def cookies(s):
