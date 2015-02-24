@@ -154,7 +154,7 @@ def inputDiscoveryPrinting(urlParsingDict, formParsingDict):
             print "    " + v[x]
 	return
 
-def parseURL(url, dict) :
+def parseURL(s,url, dict) :
     print "parsing..."
     print
     result = re.split("[=?&]",url)  #Split on URL params
