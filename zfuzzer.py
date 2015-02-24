@@ -47,6 +47,7 @@ def main():
 			if(args['customAuth']):
 				s = auth(s)
 		pageDiscovery(s)
+        pageGuessing(s)
 
 def auth(s):
 	if   (args['customAuth'] == 'dvwa'):
@@ -62,7 +63,6 @@ def pageDiscovery(s):
 	while len(links) > 0 :
 		# get the next link
 		url = links.pop(0)
-		pageGuessing(s,url)
 		explored[url] = 1
 		# get "Child" links
 		htmlLinks = linkDiscovery(s,url)
@@ -71,10 +71,12 @@ def pageDiscovery(s):
 			# If it's in the local domain... explore in detail later
 			if htmlLinks[link] and link not in links and link not in explored :
 				links.append(link)
+                explored[link] = 0
 
 def linkDiscovery(s,url):
 	# Get, then parse the HTML source
     print "URL: " + url
+    #pageGuessing(s,url)
     response = s.get(url)
     html = BeautifulSoup(response.text)
     # extract the links
@@ -103,7 +105,7 @@ def linkDiscovery(s,url):
 
     return retVal
 
-def pageGuessing(s,url):
+def pageGuessing(s):
     print('Running page guessing...')
 
     #Read the list of commond words
@@ -112,7 +114,7 @@ def pageGuessing(s,url):
             wordList = f.read().splitlines()
 
     pages = []
-    for URL in links:
+    for URL in explored.keys():
         slashCount = URL.count('/')
         URL2=''
         for char in URL:
