@@ -148,11 +148,11 @@ def inputDiscoveryPrinting(urlParsingDict, formParsingDict):
             print "    " + v[x]
 
     print "***Input Field Names from Forms***"
-    for k,v in formParsingDict.iteritems():
-        print k + ":"
-        for x in range(0, len(v)):
-            print "    " + v[x]
-	return
+    for m,n in formParsingDict.iteritems():
+        print m + ":"
+        for y in range(0, len(n)):
+            print "    " + n[y]
+
 
 def parseURL(s, url, dict) :
     print "parsing..."
