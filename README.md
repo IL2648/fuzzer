@@ -28,3 +28,5 @@ In order to setup the fuzzer follow these instructions (using python 2.7 if poss
 8.) Open a command line and navigate to the folder you just unzipped
 
 9.) Run the command <code>python setup.py install</code>
+
+10.) Pipe the output to a text file
