@@ -1,7 +1,5 @@
 import sys
 import requests
-from BeautifulSoup import BeautifulSoup
-
 
 EXT = ('.doc', '.pdf', '.ppt', '.jpg', '.jpeg', '.png', '.gif', '.docx', '.pptx', '.tif', '.tiff', '.zip', '.rar', '.7zip', '.mov', '.ps', '.avi', '.mp3', '.mp4', '.txt', '.wav', '.midi')
 links = []
@@ -53,7 +51,8 @@ def auth(s):
 	print 'the custom authentication for ' + args['customAuth'] + ' does not exist'
 
 def pageDiscovery(s):
-	print("Running...")
+	return
+	'''print("Running...")
 	# For each link, find "children" links
 	pageGuessing(s)
 	while len(links) > 0 :
@@ -66,10 +65,11 @@ def pageDiscovery(s):
 		for link in htmlLinks :
 			# If it's in the local domain... explore in detail later
 			if htmlLinks[link] and link not in q and link not in explored :
-				links.append(link)
+				links.append(link)'''
 
 def linkDiscovery(s,url):
-	# Get, then parse the HTML source
+	return
+	'''# Get, then parse the HTML source
     print "URL: " + url
     response = s.get(url)
     html = BeautifulSoup(response.text)
@@ -98,21 +98,21 @@ def linkDiscovery(s,url):
         else :
             retVal[link] = 0
 
-    return retVal
+    return retVal'''
 
 def pageGuessing(s,url):
-	f = 
+	return
 
-def inputDiscovery():
-	x=2
+def inputDiscovery(s,url):
+	return
 
-def parseURLs():
-	x=2
+def parseURLs(s,url):
+	return
 
-def formParameters():
-	x=2
+def formParameters(s,url):
+	return
 
-def cookies():
-	x=2
+def cookies(s,url):
+	return
 
 main()
