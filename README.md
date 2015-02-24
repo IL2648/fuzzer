@@ -21,8 +21,10 @@ In order to setup the fuzzer follow these instructions
 
 5.) Run the command <code>python setup.py install</code>
 
-6.) Navigate to where you cloned the fuzzer repo (this repo)
+6.) Download the zip file for master from <a href="https://github.com/bdoms/beautifulsoup">here</a>
 
-7.) Run the command <code>python fuzzer.py</code>
+7.) Unzip the file you just downloaded
 
-8.) This should output the HTML from the homepage of the DVWA
+8.) Open a command line and navigate to the folder you just unzipped
+
+9.) Run the command <code>python setup.py install</code>
