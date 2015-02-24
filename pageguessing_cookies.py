@@ -35,8 +35,8 @@ def pageGuessing():
 		for char in URL:
 			if slashCount == 0:
 				break
-			if x == '/':
-				i=i-1
+			if char == '/':
+				slashCount=slashCount-1
 			URL2 += char
 		
 		for word in wordList:
