@@ -48,6 +48,7 @@ def main():
 				s = auth(s)
 		pageDiscovery(s)
         pageGuessing(s)
+        print cookies(s)
 
 def auth(s):
 	if   (args['customAuth'] == 'dvwa'):
@@ -157,7 +158,7 @@ def parseURL(url, dict) :
 def formParameters(s,url):
 	return
 
-def cookies(s,url):
-	return
+def cookies(s):
+	return s.cookies
 
 main()
