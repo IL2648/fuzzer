@@ -52,8 +52,7 @@ def main():
         pageDiscovery(s,urlInputDict,formInputDict)
         pageGuessing(s)
         print cookies(s)
-        print urlInputDict
-        print formInputDict
+        inputDiscoveryPrinting(urlInputDict, formInputDict)
 
 def auth(s):
 	if   (args['customAuth'] == 'dvwa'):
