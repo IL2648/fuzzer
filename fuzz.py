@@ -8,7 +8,7 @@ import sys
 import unicodedata
 
 EXT = (
-    '.doc', '.pdf', '.ppt', '.php', '.html', '.jpg', '.jpeg', '.png', '.gif', '.docx', '.pptx', '.tif', '.tiff', '.zip',
+    '.doc', '.pdf', '.ppt', '.jpg', '.jpeg', '.png', '.gif', '.docx', '.pptx', '.tif', '.tiff', '.zip',
     '.rar', '.7zip', '.mov', '.ps', '.avi', '.mp3', '.mp4', '.txt', '.wav', '.midi')
 links = []
 explored = {}
@@ -170,6 +170,8 @@ def linkDiscovery(s, url):
 def pageGuessing(s):
     print('Running page guessing...')
 
+    privateEXT = EXT + {'.php', '.html'}
+
     # Read the list of commond words
     with open(args['commonWords']) as f:
         if (f):
@@ -188,7 +190,7 @@ def pageGuessing(s):
             URL2 += char
 
         for word in wordList:
-            for extension in EXT:
+            for extension in privateEXT:
                 newURL = URL2 + word + extension
                 r = s.get(newURL)
                 if r.status_code == 200:
