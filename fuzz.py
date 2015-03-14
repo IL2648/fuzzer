@@ -78,7 +78,7 @@ def main():
          if (args['customAuth']):
             s = auth(s)
 
-         #Test the URL to make sure we can get something from it. Exit graciously.
+         #Test the URL to make sure we can get something from it. Exit with grace.
          try:
              s.get(args['url'])
          except requests.exceptions.ConnectionError:
