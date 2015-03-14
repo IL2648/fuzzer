@@ -1,13 +1,14 @@
+import re
 import sys
 import requests
 from collections import deque
 import requests
-from BeautifulSoup import *
+from bs4 import BeautifulSoup
 import urlparse
 import sys
 import unicodedata
 
-EXT = ('.doc', '.pdf', '.ppt', '.php', '.html', '.jpg', '.jpeg', '.png', '.gif', '.docx', '.pptx', '.tif', '.tiff', '.zip', '.rar', '.7zip', '.mov', '.ps', '.avi', '.mp3', '.mp4', '.txt', '.wav', '.midi')
+EXT = ('.doc', '.pdf', '.ppt', '.jpg', '.jpeg', '.png', '.gif', '.docx', '.pptx', '.tif', '.tiff', '.zip', '.rar', '.7zip', '.mov', '.ps', '.avi', '.mp3', '.mp4', '.txt', '.wav', '.midi')
 links = []
 explored = {}
 urlInputs = []
@@ -41,6 +42,8 @@ def main():
 			args['customAuth']  = argval[1]
 		if(argval[0] == "--common-words"):
 			args['commonWords'] = argval[1]
+		else :
+			args['commonWords'] = ""
 	
 	if(args['mode'] == 'discover'):
 		with requests.Session() as s:
@@ -50,6 +53,7 @@ def main():
 		urlInputDict ={}
 		formInputDict={}
 		pageDiscovery(s,urlInputDict,formInputDict)
+		print("total form items: " + str(len(formInputDict)))
 		inputDiscoveryPrinting(urlInputDict, formInputDict)
 		pageGuessing(s)
 
@@ -112,6 +116,9 @@ def linkDiscovery(s,url):
 	return retVal
 
 def pageGuessing(s):
+	if args['commonWords'] == "" :
+		return
+
 	print('Running page guessing...')
 
 	#Read the list of commond words
@@ -132,7 +139,7 @@ def pageGuessing(s):
 			URL2 += char
 
 		for word in wordList:
-			for extension in EXT:
+			for extension in (EXT + ('.htm', '.html', '.php', '.js')):
 				newURL = URL2+word+extension
 				r = s.get(newURL)
 				if r.status_code == 200:
@@ -178,11 +185,11 @@ def formParameters(s, url, dict):
 	baseUrl = urlSplit[0].encode("ascii")   #This is the base URL
 
 	r = requests.get(url)
-	inputElements = re.findall("<input.*?/>",r.content) #Find all "input" elements using a non-greedy regex
+	inputElements = re.findall("<input.*?>",r.content) #Find all "input" elements using a non-greedy regex
 
 	for x in range(0, len(inputElements)):
 		if "name=\"" in inputElements[x]: #Check to see if the result contains a "name" attribute
-			inputName = re.findall("name=\"(.*?)\"", inputElements[x]) #Get a list that only contains the value of the "name" attribute
+			inputName = re.findall("name=\"([^\"]*?)\"", inputElements[x]) #Get a list that only contains the value of the "name" attribute
 			inputName = inputName.pop()
 			if baseUrl in dict :  #If this URL is already in the dictionary...
 				checkList = dict[baseUrl] #Put any already created params in a temp list
@@ -190,17 +197,35 @@ def formParameters(s, url, dict):
 					dict[baseUrl].append(inputName)
 			else :
 				 dict[baseUrl] = [inputName]
+	print("DICT: " + str(len(inputElements)))
 	return dict
 
 def cookies(s):
 	return s.cookies
 
 def checksanitization(response):
+
+	return
 	
 def checksensitivedata(response):
+	# Get sensitive data from file
+
+	# Loop through all of the links again
+
+
+	# Open the current url
+
+
+	# Check content in response for sensitive data
+	return
+
 	
 def checkdelay(response):
+
+	return
 	
 def checkresponsecode(response):
+
+	return
 	
 main()

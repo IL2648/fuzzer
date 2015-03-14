@@ -1,0 +1,15 @@
+index
+main
+about
+log
+login
+instructions
+setup
+install
+exec
+update
+php
+phpinfo
+catergory
+help
+account

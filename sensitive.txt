@@ -1,0 +1,6 @@
+MySQL
+admin
+password
+pass
+account
+SQL
