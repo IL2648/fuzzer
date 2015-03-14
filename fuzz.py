@@ -133,7 +133,7 @@ def linkDiscovery(s, url):
 	html = BeautifulSoup(response.text)
 	# extract the links
 	retVal = {}
-	urlParts = urlparse(url)
+	urlParts = urlparse.urlparse(url)
 	for tag in html.findAll('a') :
 		link = tag.get('href')
 		if link is None :
@@ -150,7 +150,7 @@ def linkDiscovery(s, url):
 			link = urlParts[0] + '://' + urlParts[1] + '/' + link
 
 		# Add the link, set 1 if in domain and not a "file"
-		if urlParts[1] == urlparse(str(link))[1] and not link.lower().endswith(EXT) :
+		if urlParts[1] == urlparse.urlparse(str(link))[1] and not link.lower().endswith(EXT) :
 			retVal[link] = 1
 		else :
 			retVal[link] = 0
