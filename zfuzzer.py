@@ -195,4 +195,12 @@ def formParameters(s, url, dict):
 def cookies(s):
 	return s.cookies
 
+def checksanitization(response):
+	
+def checksensitivedata(response):
+	
+def checkdelay(response):
+	
+def checkresponsecode(response):
+	
 main()
