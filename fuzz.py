@@ -119,37 +119,40 @@ def pageDiscovery(s):
 
 
 def linkDiscovery(s, url):
-    # Get, then parse the HTML source
-    print "URL: " + url
-    # pageGuessing(s,url)
-    response = s.get(url)
-    html = BeautifulSoup(response.text)
-    # extract the links
-    retVal = {}
-    urlParts = urlparse.urlparse(url)
-    for tag in html.findAll('a'):
-        link = tag.get('href')
-        link = link.rstrip('.') #remove all trailing periods
-        if link is None:
-            continue
-        print "  " + link
-        # Make the link a Fully Qualified Path (FQP)
-        if link.startswith('/'):  # Local
-            link = urlParts[0] + '://' + urlParts[1] + link
-        elif link.startswith('#'):  # Bookmark
-            #link = urlParts[0] + '://' + urlParts[1] + urlParts[2] + link
-            # I don't want bookmarks, they are on the same page as the current url
-            continue
-        elif not link.startswith('http'):  # External or Local w/ FQP
-            link = urlParts[0] + '://' + urlParts[1] + '/' + link
+	# Get, then parse the HTML source
+	#print("URL: " + url)
+	#pageGuessing(s,url)
+	try :
+		response = s.get(url)
+	except :
+		print("An error occurred attempting to connect to " + url + "\n")
+		return
+	html = BeautifulSoup(response.text)
+	# extract the links
+	retVal = {}
+	urlParts = urlparse(url)
+	for tag in html.findAll('a') :
+		link = tag.get('href')
+		if link is None :
+			continue
+		print("  " + link)
+		# Make the link a Fully Qualified Path (FQP)
+		if link.startswith('/') :                           # Local
+			link = urlParts[0] + '://' + urlParts[1] + link
+		elif link.startswith('#') :                         # Bookmark
+			#link = urlParts[0] + '://' + urlParts[1] + urlParts[2] + link
+			# I don't want bookmarks, they are on the same page as the current url
+			continue
+		elif not link.startswith('http') :                  # External or Local w/ FQP
+			link = urlParts[0] + '://' + urlParts[1] + '/' + link
 
-            # Add the link, set 1 if in domain and not a "file"
-        if urlParts[1] == urlparse.urlparse(str(link))[1] and not link.lower().endswith(EXT):
-            retVal[link] = 1
-        else:
-            retVal[link] = 0
+		# Add the link, set 1 if in domain and not a "file"
+		if urlParts[1] == urlparse(str(link))[1] and not link.lower().endswith(EXT) :
+			retVal[link] = 1
+		else :
+			retVal[link] = 0
 
-    return retVal
+	return retVal
 
 
 def pageGuessing(s):
