@@ -155,6 +155,8 @@ def linkDiscovery(s, url):
                 continue
             elif not link.startswith('http'):  # External or Local w/ FQP
                 link = BaseUrl + link #when using the url parser to build, this was building incorrectly for http://127.0.0.1/dvwa/
+                #link = urlParts[0] + '://' + urlParts[1] + '/' + link
+                #Putting the "Broken" code back in, just in case I'm wrong and it was fine.
 
             # Add the link, set 1 if in domain and not a "file"
             if urlParts[1] == urlparse.urlparse(str(link))[1] and not link.lower().endswith(EXT):
