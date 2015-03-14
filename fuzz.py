@@ -100,22 +100,25 @@ def auth(s):
 
 
 def pageDiscovery(s):
-    print("Running...")
-    # For each link, find "children" links
-    while len(links) > 0:
-        # get the next link
-        url = links.pop(0)
-        explored[url] = 1
-        # get "Child" links
-        htmlLinks = linkDiscovery(s, url)
-        parseURL(s, url, urlInputDict)
-        formParameters(s, url, formInputDict)
-        # If the link isn't already in the queue and hasn't been looked at
-        for link in htmlLinks:
-            # If it's in the local domain... explore in detail later
-            if htmlLinks[link] and link not in links and link not in explored:
-                links.append(link)
-                explored[link] = 0
+	print("***Link Discover for " + links[0] + "***")
+	# For each link, find "children" links
+	while len(links) > 0 :
+		# get the next link
+		url = links.pop(0)
+		explored[url] = 1
+		# get "Child" links
+		htmlLinks = linkDiscovery(s,url)
+		parseURL(s,url,urlInputDict)
+		formParameters(s,url, formInputDict)
+		# If no links were returned, try the next url
+		if htmlLinks is None :
+			continue
+		# If the link isn't already in the queue and hasn't been looked at
+		for link in htmlLinks :
+			# If it's in the local domain... explore in detail later
+			if htmlLinks[link] and link not in links and link not in explored :
+				links.append(link)
+				explored[link] = 0
 
 
 def linkDiscovery(s, url):
