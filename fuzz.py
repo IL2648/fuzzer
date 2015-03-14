@@ -129,6 +129,7 @@ def linkDiscovery(s, url):
     urlParts = urlparse.urlparse(url)
     for tag in html.findAll('a'):
         link = tag.get('href')
+        link = link.rstrip('.') #remove all trailing periods
         if link is None:
             continue
         print "  " + link
