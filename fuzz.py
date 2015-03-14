@@ -1,9 +1,10 @@
 import sys
 import requests
+import re
 from collections import deque
-import requests
 from bs4 import BeautifulSoup
-from urllib import parse
+from urllib.parse import urlparse
+from urllib.error import URLError, HTTPError
 import sys
 import unicodedata
 
@@ -62,7 +63,7 @@ def auth(s):
 	print('the custom authentication for ' + args['customAuth'] + ' does not exist')
 
 def pageDiscovery(s, urlInputDict, formInputDict):
-	print("Running...")
+	print("***Link Discover for " + links[0] + "***")
 	# For each link, find "children" links
 	while len(links) > 0 :
 		# get the next link
@@ -72,6 +73,9 @@ def pageDiscovery(s, urlInputDict, formInputDict):
 		htmlLinks = linkDiscovery(s,url)
 		parseURL(s,url,urlInputDict)
 		formParameters(s,url, formInputDict)
+		# If no links were returned, try the next url
+		if htmlLinks is None :
+			continue
 		# If the link isn't already in the queue and hasn't been looked at
 		for link in htmlLinks :
 			# If it's in the local domain... explore in detail later
@@ -81,13 +85,17 @@ def pageDiscovery(s, urlInputDict, formInputDict):
 
 def linkDiscovery(s,url):
 	# Get, then parse the HTML source
-	print("URL: " + url)
+	#print("URL: " + url)
 	#pageGuessing(s,url)
-	response = s.get(url)
+	try :
+		response = s.get(url)
+	except :
+		print("An error occurred attempting to connect to " + url + "\n")
+		return
 	html = BeautifulSoup(response.text)
 	# extract the links
 	retVal = {}
-	urlParts = urlparse.urlparse(url)
+	urlParts = urlparse(url)
 	for tag in html.findAll('a') :
 		link = tag.get('href')
 		if link is None :
@@ -104,7 +112,7 @@ def linkDiscovery(s,url):
 			link = urlParts[0] + '://' + urlParts[1] + '/' + link        
 
 		# Add the link, set 1 if in domain and not a "file"
-		if urlParts[1] == urlparse.urlparse(str(link))[1] and not link.lower().endswith(EXT) :
+		if urlParts[1] == urlparse(str(link))[1] and not link.lower().endswith(EXT) :
 			retVal[link] = 1
 		else :
 			retVal[link] = 0
@@ -134,7 +142,11 @@ def pageGuessing(s):
 		for word in wordList:
 			for extension in EXT:
 				newURL = URL2+word+extension
-				r = s.get(newURL)
+				# Skip to the next one if this connection fails
+				try :
+					r = s.get(newURL)
+				except :
+					continue
 				if r.status_code == 200:
 					pages.append(newURL)
 					print(newURL)
@@ -142,21 +154,27 @@ def pageGuessing(s):
 
 def inputDiscoveryPrinting(urlParsingDict, formParsingDict):
 	print('***Inputs parsed through URLS***')
-	for k,v in urlParsingDict.iteritems():
-		print(k + ":")
-		for x in range(0, len(v)):
-			print("    " + v[x])
+	if urlParsingDict is None or not bool(urlParsingDict) :
+		print("< None >\n")
+	else :
+		for k,v in urlParsingDict.items():
+			print(k + ":")
+			for x in range(0, len(v)):
+				print("    " + v[x])
 
 	print("***Input Field Names from Forms***")
-	for m,n in formParsingDict.iteritems():
-		print(m + ":")
-		for y in range(0, len(n)):
-			print("    " + n[y])
+	if formParsingDict is None or not bool(formParsingDict) :
+		print("< None >\n")
+	else :
+		for m,n in formParsingDict.items():
+			print(m + ":")
+			for y in range(0, len(n)):
+				print("    " + n[y])
 
 
 def parseURL(s,url, dict) :
-	print("parsing...")
-	print("")
+	#print("parsing...")
+	#print("")
 	result = re.split("[=?&]",url)  #Split on URL params
 
 	for x in range(1, len(result)) :  #Iterate through each split item
@@ -177,7 +195,11 @@ def formParameters(s, url, dict):
 	urlSplit = re.split("[=?&]",url)  #Split on URL params
 	baseUrl = urlSplit[0].encode("ascii")   #This is the base URL
 
-	r = requests.get(url)
+	try :
+		r = requests.get(url)
+	except :
+		# Quietly return
+		return
 	inputElements = re.findall("<input.*?/>",r.content) #Find all "input" elements using a non-greedy regex
 
 	for x in range(0, len(inputElements)):
@@ -196,3 +218,7 @@ def cookies(s):
 	return s.cookies
 
 main()
+# Geoff Changed the following to work with Py3.4... This is my reminder to change them back.
+#     dict.iterItems <--> dict.items()
+#     import BeautifulSoup <--> from bs4 import BeautifulSoup
+#     import urlparse <--> from urllib import parse
