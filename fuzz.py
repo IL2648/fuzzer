@@ -16,6 +16,7 @@ urlInputs = []
 urlInputDict = {}
 formInputDict = {}
 words = []
+BaseUrl = ''
 auths = {
     'dvwa': {
         'username': 'admin',
@@ -41,8 +42,7 @@ args = {
 
 
 def main():
-
-    #ensure that we have at least the bare minimum of arguments
+    # ensure that we have at least the bare minimum of arguments
     if (sys.argv.__len__() < 2):
         print("Not enough arguments, you must have at least 2, please follow this format")
         print("fuzz [discover | test] url OPTIONS")
@@ -72,18 +72,17 @@ def main():
         elif (argval[0] == "--slow"):
             args['slow'] = argval[1]
 
-
     args['url'] = sys.argv[2]
     with requests.Session() as s:
-         if (args['customAuth']):
+        if (args['customAuth']):
             s = auth(s)
 
-         #Test the URL to make sure we can get something from it. Exit with grace.
-         try:
-             s.get(args['url'])
-         except requests.exceptions.ConnectionError:
-             print("Connection could not be established to designated URL")
-             sys.exit()
+        #Test the URL to make sure we can get something from it. Exit with grace.
+        try:
+            s.get(args['url'])
+        except requests.exceptions.ConnectionError:
+            print("Connection could not be established to designated URL")
+            sys.exit()
 
     pageDiscovery(s)
     inputDiscoveryPrinting(urlInputDict, formInputDict)
@@ -100,62 +99,70 @@ def auth(s):
 
 
 def pageDiscovery(s):
-	print("***Link Discover for " + links[0] + "***")
-	# For each link, find "children" links
-	while len(links) > 0 :
-		# get the next link
-		url = links.pop(0)
-		explored[url] = 1
-		# get "Child" links
-		htmlLinks = linkDiscovery(s,url)
-		parseURL(s,url,urlInputDict)
-		formParameters(s,url, formInputDict)
-		# If no links were returned, try the next url
-		if htmlLinks is None :
-			continue
-		# If the link isn't already in the queue and hasn't been looked at
-		for link in htmlLinks :
-			# If it's in the local domain... explore in detail later
-			if htmlLinks[link] and link not in links and link not in explored :
-				links.append(link)
-				explored[link] = 0
+    print("***Link Discover for " + links[0] + "***")
+    # For each link, find "children" links
+    while len(links) > 0:
+        # get the next link
+        url = links.pop(0)
+        explored[url] = 1
+        # get "Child" links
+        htmlLinks = linkDiscovery(s, url)
+        parseURL(s, url, urlInputDict)
+        formParameters(s, url, formInputDict)
+        # If no links were returned, try the next url
+        if htmlLinks is None:
+            continue
+        # If the link isn't already in the queue and hasn't been looked at
+        for link in htmlLinks:
+            # If it's in the local domain... explore in detail later
+            if htmlLinks[link] and link not in links and link not in explored:
+                links.append(link)
+                explored[link] = 0
 
 
 def linkDiscovery(s, url):
-	# Get, then parse the HTML source
-	#print("URL: " + url)
-	#pageGuessing(s,url)
-	try :
-		response = s.get(url)
-	except :
-		print("An error occurred attempting to connect to " + url + "\n")
-		return
-	html = BeautifulSoup(response.text)
-	# extract the links
-	retVal = {}
-	urlParts = urlparse.urlparse(url)
-	for tag in html.findAll('a') :
-		link = tag.get('href')
-		if link is None :
-			continue
-		print("  " + link)
-		# Make the link a Fully Qualified Path (FQP)
-		if link.startswith('/') :                           # Local
-			link = urlParts[0] + '://' + urlParts[1] + link
-		elif link.startswith('#') :                         # Bookmark
-			#link = urlParts[0] + '://' + urlParts[1] + urlParts[2] + link
-			# I don't want bookmarks, they are on the same page as the current url
-			continue
-		elif not link.startswith('http') :                  # External or Local w/ FQP
-			link = urlParts[0] + '://' + urlParts[1] + '/' + link
+    # Get, then parse the HTML source
+    # print("URL: " + url)
+    #pageGuessing(s,url)
+        global BaseUrl
+        if BaseUrl=='':
+            BaseUrl=url
 
-		# Add the link, set 1 if in domain and not a "file"
-		if urlParts[1] == urlparse.urlparse(str(link))[1] and not link.lower().endswith(EXT) :
-			retVal[link] = 1
-		else :
-			retVal[link] = 0
+        try:
+            response = s.get(url)
+        except:
+            print("An error occurred attempting to connect to " + url + "\n")
+            return
 
-	return retVal
+        html = BeautifulSoup(response.text)
+        # extract the links
+        retVal = {}
+        urlParts = urlparse.urlparse(url)
+        for tag in html.findAll('a'):
+            link = tag.get('href')
+            link = link.rstrip('.') #remove all trailing periods
+            if link is None:
+                continue
+            print("  " + link)
+            # Make the link a Fully Qualified Path (FQP)
+            if link.startswith('/'):  # Local
+                link = urlParts[0] + '://' + urlParts[1] + link
+            elif link.startswith('#'):  # Bookmark
+                #link = urlParts[0] + '://' + urlParts[1] + urlParts[2] + link
+                # I don't want bookmarks, they are on the same page as the current url
+                continue
+            elif link.startswith('../') : #Strange infinite loop case which came up during http://127.0.0.1/dvwa/ test
+                continue
+            elif not link.startswith('http'):  # External or Local w/ FQP
+                link = BaseUrl + link #when using the url parser to build, this was building incorrectly for http://127.0.0.1/dvwa/
+
+            # Add the link, set 1 if in domain and not a "file"
+            if urlParts[1] == urlparse.urlparse(str(link))[1] and not link.lower().endswith(EXT):
+                retVal[link] = 1
+            else:
+                retVal[link] = 0
+
+        return retVal
 
 
 def pageGuessing(s):
@@ -208,7 +215,7 @@ def parseURL(s, url, dict):
     result = re.split("[=?&]", url)  # Split on URL params
 
     for x in range(1, len(result)):  # Iterate through each split item
-        if (x % 2 == 1):  #If the item is odd, then it is a param
+        if (x % 2 == 1):  # If the item is odd, then it is a param
 
             if result[0] in dict:  #If this URL is already in the dictionary...
                 checkList = dict[result[0]]  #Put any already created params in a temp list
@@ -225,15 +232,15 @@ def formParameters(s, url, dict):
     urlSplit = re.split("[=?&]", url)  # Split on URL params
     baseUrl = urlSplit[0].encode("ascii")  # This is the base URL
 
-    r = requests.get(url)
-    inputElements = re.findall("<input.*?>", r.content)  # Find all "input" elements using a non-greedy regex
+    r = s.get(url)
+    inputElements = re.findall("<input.*?>", r.text)  # Find all "input" elements using a non-greedy regex
 
     for x in range(0, len(inputElements)):
         if "name=\"" in inputElements[x]:  # Check to see if the result contains a "name" attribute
             inputName = re.findall("name=\"(.*?)\"",
-                                   inputElements[x])  #Get a list that only contains the value of the "name" attribute
+                                   inputElements[x])  # Get a list that only contains the value of the "name" attribute
             inputName = inputName.pop()
-            if baseUrl in dict:  #If this URL is already in the dictionary...
+            if baseUrl in dict:  # If this URL is already in the dictionary...
                 checkList = dict[baseUrl]  #Put any already created params in a temp list
                 if inputName not in checkList:  #Check if item we're trying to add is in that temp list
                     dict[baseUrl].append(inputName)
