@@ -28,6 +28,7 @@ urlInputs = []
 urlInputDict = {}
 formInputDict = {}
 words = []
+statusCodeLog = []
 BaseUrl = ''
 TO_FILE = True
 logFile = open('output.txt', 'w')
@@ -253,9 +254,11 @@ def pageGuessing(s):
             for extension in privateEXT:
                 newURL = URL2 + word + extension
                 r = s.get(newURL)
-                if r.status_code == 200:
+                if r.status_code < 300:
                     pages.append(newURL)
                     output(newURL)
+                #else:
+                    #statusCodeLog.append((r.status_code,newURL))
     return pages
 
 
@@ -341,5 +344,8 @@ def output(msg):
         logFile.write("\n")
     print(msg)
 
+def checkResponse(r):
+    if( r.status_code >= 300 ):
+        statusCodeLog.append((r.status_code,newURL))
 
 main()
