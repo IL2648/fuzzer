@@ -1,4 +1,5 @@
 import re
+import os
 import sys
 import requests
 from collections import deque
@@ -28,6 +29,8 @@ urlInputDict = {}
 formInputDict = {}
 words = []
 BaseUrl = ''
+TO_FILE = True
+logFile = open('output.txt', 'w')
 auths = {
     'dvwa': {
         'username': 'admin',
@@ -54,14 +57,14 @@ args = {
 def main():
     # ensure that we have at least the bare minimum of arguments
     if (sys.argv.__len__() < 2):
-        print("Not enough arguments, you must have at least 2, please follow this format")
-        print("fuzz [discover | test] url OPTIONS")
+        output("Not enough arguments, you must have at least 2, please follow this format")
+        output("fuzz [discover | test] url OPTIONS")
         sys.exit()
 
     #Ensure first argument is what it's supposed to be
     args['mode'] = sys.argv[1]
     if ((args['mode'] != 'discover') & (args['mode'] != 'test')):
-        print("The mode is set to [" + args['mode'] + "] Please set it to discover or test")
+        output("The mode is set to [" + args['mode'] + "] Please set it to discover or test")
         sys.exit()
 
     links.append(sys.argv[2])
@@ -91,12 +94,16 @@ def main():
         try:
             s.get(args['url'])
         except requests.exceptions.ConnectionError:
-            print("Connection could not be established to designated URL")
+            output("Connection could not be established to designated URL")
             sys.exit()
 
+    # Run program
     pageDiscovery(s)
     inputDiscoveryPrinting(urlInputDict, formInputDict)
     pageGuessing(s)
+
+    # Close the log file
+    logFile.close()
 
 
 def auth(s):
@@ -105,7 +112,7 @@ def auth(s):
         return s
     elif (args['customAuth'] == 'BodgeIt'):
         return s
-    print('the custom authentication for ' + args['customAuth'] + ' does not exist')
+    output('the custom authentication for ' + args['customAuth'] + ' does not exist')
 
 
 # This function will start by finding links for the base URL provided 
@@ -122,19 +129,19 @@ def auth(s):
 #   permitted by the linkDiscovery() function which is determined
 #   by looking at the value in the dictionary (1=check, 0=skip)
 def pageDiscovery(s):
-    print("***Fuzzing " + links[0] + "***\n")
+    output("***Fuzzing " + links[0] + "***\n")
     # For each link, find "children" links
     while len(links) > 0:
         # get the next link
         url = links.pop(0)
         explored[url] = 1
-        print("Fuzz results for " + url)
+        output("Fuzz results for " + url)
 
         # connect to this link, if there is an error, skip it.
         try:
             response = s.get(url)
         except:
-            print("    An error occurred attempting to connect to " + url + "\n")
+            output("    An error occurred attempting to connect to " + url + "\n")
             continue
 
         # check the response for sensitive data if the arg was used
@@ -144,10 +151,10 @@ def pageDiscovery(s):
             # Print sensitive word results
             if findings is not None:
                 for word in findings.keys():
-                    print("      " + word + " - " + str(findings[word]))
+                    output("      " + word + " - " + str(findings[word]))
             else:
-                print("      < none >")
-            print("")
+                output("      < none >")
+            output("")
 
         # Parse the URL for parameters
         parseURL(s, url, urlInputDict)
@@ -159,19 +166,19 @@ def pageDiscovery(s):
         htmlLinks = linkDiscovery(url, response)
 
         # If no links were returned, try the next url
-        print("    ***Links Discovered***")
+        output("    ***Links Discovered***")
         if htmlLinks is None:
-            print("      < none >")
-            print("")
+            output("      < none >")
+            output("")
             continue
         # If the link isn't already in the queue and hasn't been looked at
         for link in htmlLinks:
-            print("      " + link)
+            output("      " + link)
             # If it's in the local domain... explore in detail later
             if htmlLinks[link] and link not in links and link not in explored:
                 links.append(link)
                 explored[link] = 0
-        print("")
+        output("")
 
 
 # This function scrapes hyperlinks from the URL provided, it then analyzes
@@ -221,7 +228,7 @@ def pageGuessing(s):
     # check if the page guessing arg exists, if not, return
     if (args['commonWords'] == False):
         return
-    print('Running page guessing...')
+    output('Running page guessing...')
 
     privateEXT = EXT + ('.php', '.html')
 
@@ -232,7 +239,7 @@ def pageGuessing(s):
 
     pages = []
     for URL in explored.keys():
-        print 'guessing for ' + URL
+        output("guessing for " + URL)
         slashCount = URL.count('/')
         URL2 = ''
         for char in URL:
@@ -248,27 +255,27 @@ def pageGuessing(s):
                 r = s.get(newURL)
                 if r.status_code == 200:
                     pages.append(newURL)
-                    print(newURL)
+                    output(newURL)
     return pages
 
 
 def inputDiscoveryPrinting(urlParsingDict, formParsingDict):
-    print "***Inputs parsed through URLS***"
+    output("***Inputs parsed through URLS***")
     for k, v in urlParsingDict.iteritems():
-        print k + ":"
+        output(k + ":")
         for x in range(0, len(v)):
-            print "    " + v[x]
+            output("    " + v[x])
 
-    print "***Input Field Names from Forms***"
+    output("***Input Field Names from Forms***")
     for m, n in formParsingDict.iteritems():
-        print m + ":"
+        output(m + ":")
         for y in range(0, len(n)):
-            print "    " + n[y]
+            output("    " + n[y])
 
 
 def parseURL(s, url, dict):
-    print("    ***Parameters Discovered***")
-    print("")
+    output("    ***Parameters Discovered***")
+    output("")
     result = re.split("[=?&]", url)  # Split on URL params
 
     for x in range(1, len(result)):  # Iterate through each split item
@@ -311,7 +318,7 @@ def cookies(s):
 
 
 def checksensitivedata(response):
-    print("    ***Sensitive Data***")
+    output("    ***Sensitive Data***")
     # Get sensitive data from file
     with open(args['sensitive']) as f:
         if (f):
@@ -325,5 +332,14 @@ def checksensitivedata(response):
             retVal[word] = count
 
     return retVal
+
+# Use in place of print to also use a log file
+def output(msg):
+    global TO_FILE
+    if TO_FILE:
+        logFile.write(msg)
+        logFile.write("\n")
+    print(msg)
+
 
 main()
