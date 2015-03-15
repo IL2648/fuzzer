@@ -168,9 +168,7 @@ def pageDiscovery(s):
         for link in htmlLinks:
             print("      " + link)
             # If it's in the local domain... explore in detail later
- #           print("if " + str(htmlLinks[link]) + " and " + str(link not in links) + " and " + str(link not in explored))
             if htmlLinks[link] and link not in links and link not in explored:
- #               print("Moving to explore " + link)
                 links.append(link)
                 explored[link] = 0
         print("")
@@ -184,11 +182,6 @@ def pageDiscovery(s):
 #   argument was provided.  This was an effort to avoid calling response
 #   again later in the program and just using it as soon as it was received.
 def linkDiscovery(url, response):
-    # Get, then parse the HTML source
-    # print("URL: " + url)
-    #pageGuessing(s,url)
-
-
     # extract the links
     html = BeautifulSoup(response.text)
     retVal = {}
@@ -199,7 +192,6 @@ def linkDiscovery(url, response):
         if link is None:
             continue
         # Make the link a Fully Qualified Path (FQP)
-#        print("LINK: " + link)
         if link.startswith('/'):  # Local
             link = urlParts[0] + '://' + urlParts[1] + link
         elif link.startswith('#'):  # Bookmark
@@ -217,7 +209,6 @@ def linkDiscovery(url, response):
         #     link = urlParts[0] + '://' + urlParts[1] + "/" + link
 
         # Add the link, set 1 if in domain and not a "file"
-#        print("if " + str(urlParts[1]) + " == " + str(urlparse.urlparse(str(link))[1]) + " and not " + str(link.lower().endswith(EXT)))
         if urlParts[1] == urlparse.urlparse(str(link))[1] and not link.lower().endswith(EXT):
             retVal[link] = 1
         else:
