@@ -209,7 +209,7 @@ def linkDiscovery(url, response):
         #     link = urlParts[0] + '://' + urlParts[1] + "/" + link
 
         # Add the link, set 1 if in domain and not a "file"
-        if urlParts[1] == urlparse.urlparse(str(link))[1] and not link.lower().endswith(EXT):
+        if urlParts.hostname == urlparse.urlparse(str(link)).hostname and not link.lower().endswith(EXT):
             retVal[link] = 1
         else:
             retVal[link] = 0
