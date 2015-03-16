@@ -204,8 +204,14 @@ def cookies(s):
 	return s.cookies
 
 def checksanitization(response):
-
-	return
+	
+	print"Checking if the url is sanitized..."
+	for char in ('<', '>', '&'):	#Check if the HTML characters are in the url.
+		if char in response:	# if the HTML characters in the url
+			print"The url " + response + "is not sanitized."
+			return false	#Return the url is not sanitized.
+		
+	return true	#Return the url is sanitized.
 	
 def checksensitivedata(response):
 	# Get sensitive data from file
