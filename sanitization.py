@@ -13,7 +13,7 @@ def sanitization(s):
 	checkURLs(s)
 
 def checkForms(s):
-	for k in formInputDict:
+	for k, v in formInputDict.items():
 		url = k + "?"
 		for e in v:
 			url = url + e + "=<>\\\"&"
