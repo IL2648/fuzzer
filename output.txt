@@ -1,39 +1,126 @@
-***Fuzzing http://127.0.0.1/***
+***Fuzzing http://www.rhinogolddj.com***
 
-Fuzz results for http://127.0.0.1/
+Fuzz results for http://www.rhinogolddj.com
     ***Sensitive Data***
-      admin - 1
-      password - 3
 
     ***Parameters Discovered***
 
     ***Links Discovered***
-      http://127.0.0.1:8080/WebGoat/attack
-      http://127.0.0.1:8080/jpetstore
-      http://127.0.0.1/dvwa
-      http://127.0.0.1:8080/bodgeit
+      http://www.rhinogolddj.com/contact.php
+      http://www.rhinogolddj.com/gallery.html
+      http://www.rhinogolddj.com/index.html
+      http://www.facebook.com/RhinoGoldDJ
+      http://www.rhinogolddj.com/testimonials.html
+      http://www.rhinogolddj.com/about.html
 
-Fuzz results for http://127.0.0.1:8080/WebGoat/attack
-    An error occurred attempting to connect to http://127.0.0.1:8080/WebGoat/attack
-
-Fuzz results for http://127.0.0.1:8080/jpetstore
-    An error occurred attempting to connect to http://127.0.0.1:8080/jpetstore
-
-Fuzz results for http://127.0.0.1/dvwa
+Fuzz results for http://www.rhinogolddj.com/contact.php
     ***Sensitive Data***
-      password - 3
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+      http://www.rhinogolddj.com/contact.php
+      http://www.rhinogolddj.com/gallery.html
+      http://www.rhinogolddj.com/index.html
+      http://www.facebook.com/RhinoGoldDJ
+      http://www.rhinogolddj.com/testimonials.html
+      http://www.rhinogolddj.com/about.html
+
+Fuzz results for http://www.rhinogolddj.com/gallery.html
+    ***Sensitive Data***
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+      http://www.facebook.com/RhinoGoldDJ
+      http://www.rhinogolddj.com/contact.php
+      http://www.rhinogolddj.com/gallery.html
+      http://www.rhinogolddj.com/index.html
+      http://www.rhinogolddj.com/rggallery.html
+      http://www.rhinogolddj.com/gallery001.html
+      http://www.rhinogolddj.com/testimonials.html
+      http://www.rhinogolddj.com/about.html
+
+Fuzz results for http://www.rhinogolddj.com/index.html
+    ***Sensitive Data***
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+      http://www.rhinogolddj.com/contact.php
+      http://www.rhinogolddj.com/gallery.html
+      http://www.rhinogolddj.com/index.html
+      http://www.facebook.com/RhinoGoldDJ
+      http://www.rhinogolddj.com/testimonials.html
+      http://www.rhinogolddj.com/about.html
+
+Fuzz results for http://www.rhinogolddj.com/testimonials.html
+    ***Sensitive Data***
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+      http://www.rhinogolddj.com/contact.php
+      http://www.rhinogolddj.com/gallery.html
+      http://www.rhinogolddj.com/index.html
+      http://www.facebook.com/RhinoGoldDJ
+      http://www.rhinogolddj.com/testimonials.html
+      http://www.rhinogolddj.com/about.html
+
+Fuzz results for http://www.rhinogolddj.com/about.html
+    ***Sensitive Data***
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+      http://www.rhinogolddj.com/contact.php
+      http://www.rhinogolddj.com/gallery.html
+      http://www.rhinogolddj.com/index.html
+      http://www.facebook.com/RhinoGoldDJ
+      http://www.rhinogolddj.com/testimonials.html
+      http://www.rhinogolddj.com/about.html
+
+Fuzz results for http://www.rhinogolddj.com/rggallery.html
+    ***Sensitive Data***
       pass - 1
 
     ***Parameters Discovered***
 
     ***Links Discovered***
+      http://www.rhinogolddj.com/contact.php
+      http://www.rhinogolddj.com/gallery.html
+      http://www.rhinogolddj.com/index.html
+      http://www.facebook.com/RhinoGoldDJ
+      http://www.rhinogolddj.com/testimonials.html
+      http://www.rhinogolddj.com/about.html
 
-Fuzz results for http://127.0.0.1:8080/bodgeit
-    An error occurred attempting to connect to http://127.0.0.1:8080/bodgeit
+Fuzz results for http://www.rhinogolddj.com/gallery001.html
+    ***Sensitive Data***
+      pass - 1
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+      http://www.rhinogolddj.com/gallery.html
+      http://www.rhinogolddj.com/index.html
+      http://www.facebook.com/RhinoGoldDJ
+      http://www.rhinogolddj.com/testimonials.html
+      http://www.rhinogolddj.com/contact.html
+      http://www.rhinogolddj.com/about.html
+
+Fuzz results for http://www.rhinogolddj.com/contact.html
+    ***Sensitive Data***
+      account - 1
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+      http://www.hostgator.com/?utm_source=internal&utm_medium=link&utm_campaign=offer404
 
 ***Inputs parsed through URLS***
 ***Input Field Names from Forms***
-http://127.0.0.1/dvwa:
-    username
-    password
-    Login
+http://www.rhinogolddj.com/contact.php:
+    first_name
+    email
+    telephone
+    eventDate

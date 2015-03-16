@@ -1,5 +1,4 @@
 import re
-import os
 import sys
 import requests
 from collections import deque
@@ -277,7 +276,7 @@ def inputDiscoveryPrinting(urlParsingDict, formParsingDict):
 
 
 def parseURL(s, url, dict):
-    output("    ***Parameters Discovered***")
+    outptu("    ***Parameters Discovered***")
     output("")
     result = re.split("[=?&]", url)  # Split on URL params
 
