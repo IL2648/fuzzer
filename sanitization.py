@@ -1,10 +1,11 @@
 import bleach
+import requests
 urlInputDict = {"https://www.google.com/webhp":["sourceid","ion","espv","ie"]}
 formInputDict = {"https://www.google.com/webhp":["sourceid","ion","espv","ie"]}
 unsanitized = []
-def sanitization():
-	checkForms()
-	checkURLs()
+def sanitization(s):
+	checkForms(s)
+	checkURLs(s)
 
 def checkForms(s):
 	for k,v in formInputDict:
@@ -30,5 +31,5 @@ def isSanitized(r):
 		print r.url + "!=" + bleach.clean(r.url)
 		unsanitized.append(r.url)
 		return
-		
-sanitization()
+with requests.Session() as s:
+	sanitization(s)
