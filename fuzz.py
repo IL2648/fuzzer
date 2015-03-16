@@ -276,7 +276,7 @@ def inputDiscoveryPrinting(urlParsingDict, formParsingDict):
 
 
 def parseURL(s, url, dict):
-    outptu("    ***Parameters Discovered***")
+    output("    ***Parameters Discovered***")
     output("")
     result = re.split("[=?&]", url)  # Split on URL params
 
