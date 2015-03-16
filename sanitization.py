@@ -1,10 +1,10 @@
-import bleach
 import requests
 import time
 urlInputDict = {"https://www.google.com/webhp":["sourceid","ion","espv","ie"]}
 formInputDict = {"https://www.google.com/webhp":["sourceid","ion","espv","ie"]}
 unsanitized = []
 statusCodeLog = []
+badChars = ["<",">","\"","\\"]
 slowLog = []
 slowTime = 500
 currentMilliTime = lambda: int(round(time.time() * 1000))
@@ -39,13 +39,12 @@ def checkURLs(s):
 		checkResponse(r, e)
 
 def isSanitized(r):
-	if(r.url == bleach.clean(r.url)):
-		print r.url + "=" + bleach.clean(r.url)
-		return
-	else:
-		print r.url + "!=" + bleach.clean(r.url)
-		unsanitized.append(r.url)
-		return
+	for e in badChars:
+		if e in r.url:
+			print "unsanitary"
+			unsanitized.append(r.url)
+			break
+	print "sanitary"
 
 def checkResponse(r, e):
     if( r.status_code >= 300 ):
