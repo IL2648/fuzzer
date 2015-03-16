@@ -12,30 +12,30 @@ def sanitization(s):
 	checkURLs(s)
 
 def checkForms(s):
-	for k,v in formInputDict:
+	for k, v in formInputDict.items():
 		url = k + "?"
-		for e in formInputDict[v]:
+		for e in v:
 			url = url + e + "=<>\\\"&"
-		start = lambda: int(round(time.time() * 1000))
+		start = int(round(time.time() * 1000))
 		r = s.post(url)
-		finish = lambda: int(round(time.time() * 1000))
+		finish = int(round(time.time() * 1000))
 		if(finish - start > slowTime):
 			slowLog.append(url)
 		isSanitized(r)
-		checkResponse(r)
+		checkResponse(r, e)
 
 def checkURLs(s):
-	for k in urlInputDict:
+	for k, v in urlInputDict.items():
 		url = k + "?"
-		for e in urlInputDict[v]:
+		for e in v:
 			url = url + e + "=<>\\\"&"
-		start = lambda: int(round(time.time() * 1000))
+		start = int(round(time.time() * 1000))
 		r = s.post(url)
-		finish = lambda: int(round(time.time() * 1000))
+		finish = int(round(time.time() * 1000))
 		if(finish - start > slowTime):
 			slowLog.append(url)
 		isSanitized(r)
-		checkResponse(r)
+		checkResponse(r, e)
 
 def isSanitized(r):
 	if(r.url == bleach.clean(r.url)):
@@ -46,9 +46,9 @@ def isSanitized(r):
 		unsanitized.append(r.url)
 		return
 
-def checkResponse(r):
+def checkResponse(r, e):
     if( r.status_code >= 300 ):
-        statusCodeLog.append((r.status_code,newURL))
+        statusCodeLog.append((r.status_code,e))
 
 with requests.Session() as s:
 	sanitization(s)
