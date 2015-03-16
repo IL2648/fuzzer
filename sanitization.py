@@ -16,9 +16,9 @@ def checkForms(s):
 		url = k + "?"
 		for e in formInputDict[v]:
 			url = url + e + "=<>\\\"&"
-		start = = lambda: int(round(time.time() * 1000))
+		start = lambda: int(round(time.time() * 1000))
 		r = s.post(url)
-		finish = = lambda: int(round(time.time() * 1000))
+		finish = lambda: int(round(time.time() * 1000))
 		if(finish - start > slowTime):
 			slowLog.append(url)
 		isSanitized(r)
@@ -29,9 +29,9 @@ def checkURLs(s):
 		url = k + "?"
 		for e in urlInputDict[v]:
 			url = url + e + "=<>\\\"&"
-		start = = lambda: int(round(time.time() * 1000))
+		start = lambda: int(round(time.time() * 1000))
 		r = s.post(url)
-		finish = = lambda: int(round(time.time() * 1000))
+		finish = lambda: int(round(time.time() * 1000))
 		if(finish - start > slowTime):
 			slowLog.append(url)
 		isSanitized(r)
