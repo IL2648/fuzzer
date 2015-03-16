@@ -9,6 +9,7 @@ import sys
 import unicodedata
 
 EXT = ('.doc', '.pdf', '.ppt', '.jpg', '.jpeg', '.png', '.gif', '.docx', '.pptx', '.tif', '.tiff', '.zip', '.rar', '.7zip', '.mov', '.ps', '.avi', '.mp3', '.mp4', '.txt', '.wav', '.midi')
+characterEntities = ('"', '/', '&', '<', '>', '\'')
 links = []
 explored = {}
 urlInputs = []
@@ -205,13 +206,16 @@ def cookies(s):
 
 def checksanitization(response):
 	
-	print"Checking if the url is sanitized..."
-	for char in ('<', '>', '&'):	#Check if the HTML characters are in the url.
-		if char in response:	# if the HTML characters in the url
-			print"The url " + response + "is not sanitized."
-			return false	#Return the url is not sanitized.
+	print"Checking if the urls is sanitized..."
+	
+	noSanitizedLink = []
+	for link in response:	#Traverse the data
 		
-	return true	#Return the url is sanitized.
+		for char in characterEntities:	#Check if the character entities are in the urls.
+			if char in link:	# if the HTML characters in the url
+				noSanitizedLink.append(link)
+				
+	return noSanitizedLink
 	
 def checksensitivedata(response):
 	# Get sensitive data from file
