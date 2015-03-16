@@ -364,7 +364,7 @@ def checkForms(s):
         start = currentMilliTime()
         r = s.post(url)
         finish = currentMilliTime()
-        if(finish - start > slowTime):
+        if(finish - start > args["slow"]):
             slowLog.append((url,finish-start))
         isSanitized(r)
         checkResponse(r)
