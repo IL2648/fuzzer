@@ -7,6 +7,7 @@ import requests
 from bs4 import BeautifulSoup
 import urlparse
 import sys
+import time
 import unicodedata
 # Comments Regarding imports
 #
@@ -104,7 +105,10 @@ def main():
     # Run program
     pageDiscovery(s)
     inputDiscoveryPrinting(urlInputDict, formInputDict)
+
+    sanitization(s)
     pageGuessing(s)
+
 
     # Close the log file
     logFile.close()
@@ -143,6 +147,8 @@ def pageDiscovery(s):
 
         # connect to this link, if there is an error, skip it.
         try:
+            if 'logout' in url: #Skip pages that might make us logout.
+                continue
             response = s.get(url)
         except:
             output("    An error occurred attempting to connect to " + url + "\n")
@@ -199,9 +205,13 @@ def linkDiscovery(url, response):
     urlParts = urlparse.urlparse(url)
     for tag in html.findAll('a'):
         link = tag.get('href')
-        link = link.rstrip('.') #remove all trailing periods
         if link is None:
             continue
+        link = link.rstrip('.') #remove all trailing periods
+
+        if link is None: #If link doesn't contain anything, then there is no href. Move on.
+            continue
+
         # Make the link a Fully Qualified Path (FQP)
         if link.startswith('/'):  # Local
             link = urlParts[0] + '://' + urlParts[1] + link
@@ -212,10 +222,11 @@ def linkDiscovery(url, response):
         elif link.startswith('../') : #Strange infinite loop case which came up during http://127.0.0.1/dvwa/ test
             continue
         elif not link.startswith('http'):  # External or Local w/ FQP
-            #link = BaseUrl + link #when using the url parser to build, this was building incorrectly for http://127.0.0.1/dvwa/
-            link = urlParts[0] + '://' + urlParts[1] + '/' + link
+            # link = BaseUrl + link #when using the url parser to build, this was building incorrectly for http://127.0.0.1/dvwa/
+            link = urlParts[0] + '://' + urlParts[1] + urlParts[2] + '/' + link
+            #link = url + '/' + link
             #Putting the "Broken" code back in, just in case I'm wrong and it was fine.
-        # else:
+        #else:
         #     # Assume that it is a good link missing the / because that form is still valid.
         #     link = urlParts[0] + '://' + urlParts[1] + "/" + link
 
@@ -349,7 +360,7 @@ def output(msg):
 
 def checkResponse(r):
     if( r.status_code >= 300 ):
-        statusCodeLog.append((r.status_code,newURL))
+        statusCodeLog.append((r.status_code,r.url))
 
 currentMilliTime = lambda: int(round(time.time() * 1000))
 def sanitization(s):
@@ -357,30 +368,42 @@ def sanitization(s):
     checkURLs(s)
 
 def checkForms(s):
+    with open(args['vectors']) as f:
+        if (f):
+            vectors = f.read().splitlines()
+
     for k, v in formInputDict.items():
         url = k + "?"
         for e in v:
-            url = url + e + "=<>\\\"&"
-        start = currentMilliTime()
-        r = s.post(url)
-        finish = currentMilliTime()
-        if(finish - start > args["slow"]):
-            slowLog.append((url,finish-start))
-        isSanitized(r)
-        checkResponse(r)
+            #url = url + e + "=<>\\\"&"
+            for vect in vectors:
+                url = url + e + vect
+                start = currentMilliTime()
+                r = s.post(url)
+                finish = currentMilliTime()
+                if(finish - start > args["slow"]):
+                    slowLog.append((url,finish-start))
+                isSanitized(r)
+                checkResponse(r)
 
 def checkURLs(s):
+    with open(args['vectors']) as f:
+        if (f):
+            vectors = f.read().splitlines()
+
     for k, v in urlInputDict.items():
         url = k + "?"
         for e in v:
-            url = url + e + "=<>\\\"&"
-        start = currentMilliTime()
-        r = s.get(url)
-        finish = currentMilliTime()
-        if(finish - start > args['slow']):
-            slowLog.append((url,finish-start))
-        isSanitized(r)
-        checkResponse(r)
+            #url = url + e + "=<>\\\"&"
+            for vect in vectors:
+                url = url + e + vect
+                start = currentMilliTime()
+                r = s.get(url)
+                finish = currentMilliTime()
+                if(finish - start > args['slow']):
+                    slowLog.append((url,finish-start))
+                isSanitized(r)
+                checkResponse(r)
 
 def isSanitized(r):
     for e in badChars:
