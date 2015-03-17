@@ -146,7 +146,7 @@ def main():
     # Run program
     pageDiscovery(s)
     inputDiscoveryPrinting(urlInputDict, formInputDict)
-    #pageGuessing(s)
+    pageGuessing(s)
 
     if args['mode'] == 'test':
 

@@ -1,0 +1,402 @@
+***Fuzzing http://localhost:54985/***
+
+Fuzz results for http://localhost:54985/
+    ***Sensitive Data***
+      account - 1
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+      http://localhost:54985/Season/SeasonExplorer?sortColumn=Sell-Thru (Season)&sortDescending=False&ActiveOnly=True
+      http://localhost:54985/Season/SeasonExplorer?sortColumn=Sold (Season)&sortDescending=False&ActiveOnly=True
+      http://localhost:54985/Season/SeasonExplorer?sortColumn=Name&sortDescending=True&ActiveOnly=True
+      http://localhost:54985/Season/SeasonExplorer
+      http://localhost:54985/Planogram/PlanogramExplorer
+      http://localhost:54985/Item/ItemExplorer
+      http://localhost:54985/Season/SeasonExplorer?sortColumn=Received (Season)&sortDescending=False&ActiveOnly=True
+      http://localhost:54985/Season/SeasonExplorer?sortColumn=Balance On Hand&sortDescending=False&ActiveOnly=True
+      http://localhost:54985/Season/SeasonExplorer?sortColumn=Shrink (Season)&sortDescending=False&ActiveOnly=True
+      http://localhost:54985/Season/SeasonExplorer?sortColumn=Start Date&sortDescending=False&ActiveOnly=True
+      http://localhost:54985/Season/SeasonExplorer?sortColumn=End Date&sortDescending=False&ActiveOnly=True
+
+Fuzz results for http://localhost:54985/Season/SeasonExplorer?sortColumn=Sell-Thru (Season)&sortDescending=False&ActiveOnly=True
+    ***Sensitive Data***
+      account - 1
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+      http://localhost:54985/Season/SeasonExplorer?sortColumn=Sell-Thru (Season)&sortDescending=True&ActiveOnly=True
+      http://localhost:54985/Season/SeasonExplorer?sortColumn=Name&sortDescending=False&ActiveOnly=True
+
+Fuzz results for http://localhost:54985/Season/SeasonExplorer?sortColumn=Sold (Season)&sortDescending=False&ActiveOnly=True
+    ***Sensitive Data***
+      account - 1
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+      http://localhost:54985/Season/SeasonExplorer?sortColumn=Sold (Season)&sortDescending=True&ActiveOnly=True
+
+Fuzz results for http://localhost:54985/Season/SeasonExplorer?sortColumn=Name&sortDescending=True&ActiveOnly=True
+    ***Sensitive Data***
+      account - 1
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+
+Fuzz results for http://localhost:54985/Season/SeasonExplorer
+    ***Sensitive Data***
+      account - 1
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+
+Fuzz results for http://localhost:54985/Planogram/PlanogramExplorer
+    ***Sensitive Data***
+      account - 1
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+      http://localhost:54985/Planogram/PlanogramExplorer?sortColumn=EndDate&sortDescending=False&showActiveOnly=True
+      http://localhost:54985/Planogram/PlanogramExplorer?sortColumn=UnitsSoldSeason&sortDescending=False&showActiveOnly=True
+      http://localhost:54985/Planogram/PlanogramExplorer?sortColumn=BalanceOnHand&sortDescending=False&showActiveOnly=True
+      http://localhost:54985/Planogram/PlanogramExplorer?sortColumn=UnitsReceivedSeason&sortDescending=False&showActiveOnly=True
+      http://localhost:54985/Planogram/PlanogramExplorer?sortColumn=Name&sortDescending=True&showActiveOnly=True
+      http://localhost:54985/Planogram/PlanogramExplorer?sortColumn=UnitsShrunkSeason&sortDescending=False&showActiveOnly=True
+      http://localhost:54985/Planogram/PlanogramExplorer?sortColumn=StartDate&sortDescending=False&showActiveOnly=True
+      http://localhost:54985/Planogram/PlanogramExplorer?sortColumn=SellThroughSeason&sortDescending=False&showActiveOnly=True
+
+Fuzz results for http://localhost:54985/Item/ItemExplorer
+    ***Sensitive Data***
+      account - 1
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+      http://localhost:54985/Item/ItemExplorer?sortColumn=Name&sortDescending=False
+      http://localhost:54985/Item/ItemExplorer?sortColumn=Id&sortDescending=True
+
+Fuzz results for http://localhost:54985/Season/SeasonExplorer?sortColumn=Received (Season)&sortDescending=False&ActiveOnly=True
+    ***Sensitive Data***
+      account - 1
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+      http://localhost:54985/Season/SeasonExplorer?sortColumn=Received (Season)&sortDescending=True&ActiveOnly=True
+
+Fuzz results for http://localhost:54985/Season/SeasonExplorer?sortColumn=Balance On Hand&sortDescending=False&ActiveOnly=True
+    ***Sensitive Data***
+      account - 1
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+      http://localhost:54985/Season/SeasonExplorer?sortColumn=Balance On Hand&sortDescending=True&ActiveOnly=True
+
+Fuzz results for http://localhost:54985/Season/SeasonExplorer?sortColumn=Shrink (Season)&sortDescending=False&ActiveOnly=True
+    ***Sensitive Data***
+      account - 1
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+      http://localhost:54985/Season/SeasonExplorer?sortColumn=Shrink (Season)&sortDescending=True&ActiveOnly=True
+
+Fuzz results for http://localhost:54985/Season/SeasonExplorer?sortColumn=Start Date&sortDescending=False&ActiveOnly=True
+    ***Sensitive Data***
+      account - 1
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+      http://localhost:54985/Season/SeasonExplorer?sortColumn=Start Date&sortDescending=True&ActiveOnly=True
+
+Fuzz results for http://localhost:54985/Season/SeasonExplorer?sortColumn=End Date&sortDescending=False&ActiveOnly=True
+    ***Sensitive Data***
+      account - 1
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+      http://localhost:54985/Season/SeasonExplorer?sortColumn=End Date&sortDescending=True&ActiveOnly=True
+
+Fuzz results for http://localhost:54985/Season/SeasonExplorer?sortColumn=Sell-Thru (Season)&sortDescending=True&ActiveOnly=True
+    ***Sensitive Data***
+      account - 1
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+
+Fuzz results for http://localhost:54985/Season/SeasonExplorer?sortColumn=Name&sortDescending=False&ActiveOnly=True
+    ***Sensitive Data***
+      account - 1
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+
+Fuzz results for http://localhost:54985/Season/SeasonExplorer?sortColumn=Sold (Season)&sortDescending=True&ActiveOnly=True
+    ***Sensitive Data***
+      account - 1
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+
+Fuzz results for http://localhost:54985/Planogram/PlanogramExplorer?sortColumn=EndDate&sortDescending=False&showActiveOnly=True
+    ***Sensitive Data***
+      account - 1
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+      http://localhost:54985/Planogram/PlanogramExplorer?sortColumn=EndDate&sortDescending=True&showActiveOnly=True
+      http://localhost:54985/Planogram/PlanogramExplorer?sortColumn=Name&sortDescending=False&showActiveOnly=True
+
+Fuzz results for http://localhost:54985/Planogram/PlanogramExplorer?sortColumn=UnitsSoldSeason&sortDescending=False&showActiveOnly=True
+    ***Sensitive Data***
+      account - 1
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+      http://localhost:54985/Planogram/PlanogramExplorer?sortColumn=UnitsSoldSeason&sortDescending=True&showActiveOnly=True
+
+Fuzz results for http://localhost:54985/Planogram/PlanogramExplorer?sortColumn=BalanceOnHand&sortDescending=False&showActiveOnly=True
+    ***Sensitive Data***
+      account - 1
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+      http://localhost:54985/Planogram/PlanogramExplorer?sortColumn=BalanceOnHand&sortDescending=True&showActiveOnly=True
+
+Fuzz results for http://localhost:54985/Planogram/PlanogramExplorer?sortColumn=UnitsReceivedSeason&sortDescending=False&showActiveOnly=True
+    ***Sensitive Data***
+      account - 1
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+      http://localhost:54985/Planogram/PlanogramExplorer?sortColumn=UnitsReceivedSeason&sortDescending=True&showActiveOnly=True
+
+Fuzz results for http://localhost:54985/Planogram/PlanogramExplorer?sortColumn=Name&sortDescending=True&showActiveOnly=True
+    ***Sensitive Data***
+      account - 1
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+
+Fuzz results for http://localhost:54985/Planogram/PlanogramExplorer?sortColumn=UnitsShrunkSeason&sortDescending=False&showActiveOnly=True
+    ***Sensitive Data***
+      account - 1
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+      http://localhost:54985/Planogram/PlanogramExplorer?sortColumn=UnitsShrunkSeason&sortDescending=True&showActiveOnly=True
+
+Fuzz results for http://localhost:54985/Planogram/PlanogramExplorer?sortColumn=StartDate&sortDescending=False&showActiveOnly=True
+    ***Sensitive Data***
+      account - 1
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+      http://localhost:54985/Planogram/PlanogramExplorer?sortColumn=StartDate&sortDescending=True&showActiveOnly=True
+
+Fuzz results for http://localhost:54985/Planogram/PlanogramExplorer?sortColumn=SellThroughSeason&sortDescending=False&showActiveOnly=True
+    ***Sensitive Data***
+      account - 1
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+      http://localhost:54985/Planogram/PlanogramExplorer?sortColumn=SellThroughSeason&sortDescending=True&showActiveOnly=True
+
+Fuzz results for http://localhost:54985/Item/ItemExplorer?sortColumn=Name&sortDescending=False
+    ***Sensitive Data***
+      account - 1
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+      http://localhost:54985/Item/ItemExplorer?sortColumn=Name&sortDescending=True
+      http://localhost:54985/Item/ItemExplorer?sortColumn=Id&sortDescending=False
+
+Fuzz results for http://localhost:54985/Item/ItemExplorer?sortColumn=Id&sortDescending=True
+    ***Sensitive Data***
+      account - 1
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+
+Fuzz results for http://localhost:54985/Season/SeasonExplorer?sortColumn=Received (Season)&sortDescending=True&ActiveOnly=True
+    ***Sensitive Data***
+      account - 1
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+
+Fuzz results for http://localhost:54985/Season/SeasonExplorer?sortColumn=Balance On Hand&sortDescending=True&ActiveOnly=True
+    ***Sensitive Data***
+      account - 1
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+
+Fuzz results for http://localhost:54985/Season/SeasonExplorer?sortColumn=Shrink (Season)&sortDescending=True&ActiveOnly=True
+    ***Sensitive Data***
+      account - 1
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+
+Fuzz results for http://localhost:54985/Season/SeasonExplorer?sortColumn=Start Date&sortDescending=True&ActiveOnly=True
+    ***Sensitive Data***
+      account - 1
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+
+Fuzz results for http://localhost:54985/Season/SeasonExplorer?sortColumn=End Date&sortDescending=True&ActiveOnly=True
+    ***Sensitive Data***
+      account - 1
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+
+Fuzz results for http://localhost:54985/Planogram/PlanogramExplorer?sortColumn=EndDate&sortDescending=True&showActiveOnly=True
+    ***Sensitive Data***
+      account - 1
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+
+Fuzz results for http://localhost:54985/Planogram/PlanogramExplorer?sortColumn=Name&sortDescending=False&showActiveOnly=True
+    ***Sensitive Data***
+      account - 1
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+
+Fuzz results for http://localhost:54985/Planogram/PlanogramExplorer?sortColumn=UnitsSoldSeason&sortDescending=True&showActiveOnly=True
+    ***Sensitive Data***
+      account - 1
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+
+Fuzz results for http://localhost:54985/Planogram/PlanogramExplorer?sortColumn=BalanceOnHand&sortDescending=True&showActiveOnly=True
+    ***Sensitive Data***
+      account - 1
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+
+Fuzz results for http://localhost:54985/Planogram/PlanogramExplorer?sortColumn=UnitsReceivedSeason&sortDescending=True&showActiveOnly=True
+    ***Sensitive Data***
+      account - 1
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+
+Fuzz results for http://localhost:54985/Planogram/PlanogramExplorer?sortColumn=UnitsShrunkSeason&sortDescending=True&showActiveOnly=True
+    ***Sensitive Data***
+      account - 1
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+
+Fuzz results for http://localhost:54985/Planogram/PlanogramExplorer?sortColumn=StartDate&sortDescending=True&showActiveOnly=True
+    ***Sensitive Data***
+      account - 1
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+
+Fuzz results for http://localhost:54985/Planogram/PlanogramExplorer?sortColumn=SellThroughSeason&sortDescending=True&showActiveOnly=True
+    ***Sensitive Data***
+      account - 1
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+
+Fuzz results for http://localhost:54985/Item/ItemExplorer?sortColumn=Name&sortDescending=True
+    ***Sensitive Data***
+      account - 1
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+
+Fuzz results for http://localhost:54985/Item/ItemExplorer?sortColumn=Id&sortDescending=False
+    ***Sensitive Data***
+      account - 1
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+
+http://localhost:54985/Planogram/PlanogramExplorer:
+    sortColumn
+    sortDescending
+    showActiveOnly
+http://localhost:54985/Season/SeasonExplorer:
+    sortColumn
+    sortDescending
+    ActiveOnly
+http://localhost:54985/Item/ItemExplorer:
+    sortColumn
+    sortDescending
+http://localhost:54985/Planogram/PlanogramExplorer:
+    SearchString
+    ControllerName
+    ControllerAction
+    Table
+http://localhost:54985/:
+    SearchString
+    ControllerName
+    ControllerAction
+    Table
+http://localhost:54985/Season/SeasonExplorer:
+    SearchString
+    ControllerName
+    ControllerAction
+    Table
+http://localhost:54985/Item/ItemExplorer:
+    SearchString
+    [0]
+    ControllerName
+    ControllerAction
+    Table
+    distribution-percent
+    segment-a-distribution-percent
+    segment-b-distribution-percent
+    segment-c-distribution-percent
+    sell-thru-trigger
+    segment-a-sell-thru-trigger
+    segment-b-sell-thru-trigger
+    segment-c-sell-thru-trigger
+    sell-thru-percent-trigger
