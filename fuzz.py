@@ -25,6 +25,7 @@ EXT = (
     '.rar', '.7zip', '.mov', '.ps', '.avi', '.mp3', '.mp4', '.txt', '.wav', '.midi')
 links = []
 explored = {}
+touchedHrefs = []
 urlInputs = []
 urlInputDict = {}
 formInputDict = {}
@@ -90,6 +91,20 @@ def main():
         elif (argval[0] == "--slow"):
             args['slow'] = argval[1]
 
+    if args['commonWords'] == False:
+        output("Please specify the common words using --common-words=[YourFileName]")
+        sys.exit()
+
+    if args['mode'] == 'test':
+        if not args['vectors']:
+            output("Please ensure the --vectors variable is set")
+            output("Format: --vectors=[YourFileName]")
+            sys.exit()
+        if not ['sensitive']:
+            output("Please ensure the --sensitive variable is set")
+            output("Format: --sensitive=[YourFileName]")
+            sys.exit()
+
     args['url'] = sys.argv[2]
     with requests.Session() as s:
         if (args['customAuth']):
@@ -102,14 +117,35 @@ def main():
             output("Connection could not be established to designated URL")
             sys.exit()
 
+    try:
+        with open(args['commonWords']) as f:
+            f.close()
+    except:
+        output("Could not open the common-words file")
+
     # Run program
     pageDiscovery(s)
     inputDiscoveryPrinting(urlInputDict, formInputDict)
+    #pageGuessing(s)
 
-    sanitization(s)
-    pageGuessing(s)
+    if args['mode'] == 'test':
 
+        try:
+            with open(args['vectors']) as f:
+                f.close()
+        except:
+            output("Could not open the vectors file")
+        try:
+            with open(args['sensitive']) as f:
+                f.close()
+        except:
+            output("Could not open the sensitive file")
 
+        sanitization(s)
+
+        printSanitizationResults()
+        printResponseErrors()
+        printSlowResponses()
     # Close the log file
     logFile.close()
 
@@ -205,6 +241,11 @@ def linkDiscovery(url, response):
     urlParts = urlparse.urlparse(url)
     for tag in html.findAll('a'):
         link = tag.get('href')
+        if link in touchedHrefs:
+            continue
+        else:
+            touchedHrefs.append(link)
+
         if link is None:    #Skip tags which have no href
             continue
 
@@ -224,6 +265,8 @@ def linkDiscovery(url, response):
             continue
         elif not link.startswith('http'):  # External or Local w/ FQP
             # link = BaseUrl + link #when using the url parser to build, this was building incorrectly for http://127.0.0.1/dvwa/
+            if link in urlParts[2]: #If the link is a substring of urlParts[2], we might be in an infinite loop. Skip.
+                continue
             link = urlParts[0] + '://' + urlParts[1] + urlParts[2] + '/' + link
             #link = url + '/' + link
             #Putting the "Broken" code back in, just in case I'm wrong and it was fine.
@@ -407,8 +450,11 @@ def checkURLs(s):
                 checkResponse(r)
 
 def isSanitized(r):
-    for e in badChars:
-        if e in r.url:
+    with open(args['vectors']) as f:
+        if (f):
+            vectors = f.read().splitlines()
+    for vect in vectors:
+        if vect in r.url:
             unsanitized.append(r.url)
             break
 

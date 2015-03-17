@@ -1,0 +1,267 @@
+***Fuzzing http://127.0.0.1/***
+
+Fuzz results for http://127.0.0.1/
+    ***Sensitive Data***
+      admin - 1
+      password - 3
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+      http://127.0.0.1:8080/WebGoat/attack
+      http://127.0.0.1:8080/jpetstore
+      http://127.0.0.1/dvwa
+      http://127.0.0.1:8080/bodgeit
+
+Fuzz results for http://127.0.0.1:8080/WebGoat/attack
+    ***Sensitive Data***
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+
+Fuzz results for http://127.0.0.1:8080/jpetstore
+    ***Sensitive Data***
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+      http://127.0.0.1:8080/jpetstore/actions/Catalog.action
+
+Fuzz results for http://127.0.0.1/dvwa
+    ***Sensitive Data***
+      admin - 1
+      SQL - 2
+      MySQL - 1
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+      http://hiderefer.com/?http://www.apachefriends.org/en/xampp.html
+      http://127.0.0.1/dvwa/logout.php
+      http://127.0.0.1/dvwa/vulnerabilities/exec/
+      http://127.0.0.1/dvwa/vulnerabilities/brute/
+      http://127.0.0.1/dvwa/about.php
+      http://127.0.0.1/dvwa/security.php
+      http://127.0.0.1/dvwa/phpinfo.php
+      http://127.0.0.1/dvwa/instructions.php
+      http://127.0.0.1/dvwa/vulnerabilities/xss_s/
+      http://127.0.0.1/dvwa/vulnerabilities/sqli/
+      http://127.0.0.1/dvwa/vulnerabilities/xss_r/
+      http://127.0.0.1/dvwa/vulnerabilities/upload/
+      http://127.0.0.1/dvwa/vulnerabilities/csrf/
+      http://127.0.0.1/dvwa/vulnerabilities/fi/.?page=include.php
+      http://127.0.0.1/dvwa/vulnerabilities/sqli_blind/
+      http://127.0.0.1/dvwa/setup.php
+
+Fuzz results for http://127.0.0.1:8080/bodgeit
+    ***Sensitive Data***
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+
+Fuzz results for http://127.0.0.1:8080/jpetstore/actions/Catalog.action
+    ***Sensitive Data***
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+
+Fuzz results for http://127.0.0.1/dvwa/logout.php
+Fuzz results for http://127.0.0.1/dvwa/vulnerabilities/exec/
+    ***Sensitive Data***
+      admin - 1
+      SQL - 2
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+      http://hiderefer.com/?http://www.scribd.com/doc/2530476/Php-Endangers-Remote-Code-Execution
+      http://hiderefer.com/?http://www.ss64.com/bash/
+      http://hiderefer.com/?http://www.ss64.com/nt/
+
+Fuzz results for http://127.0.0.1/dvwa/vulnerabilities/brute/
+    ***Sensitive Data***
+      admin - 1
+      password - 3
+      SQL - 2
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+      http://hiderefer.com/?http://www.sillychicken.co.nz/Security/how-to-brute-force-http-forms-in-windows.html
+      http://hiderefer.com/?http://www.securityfocus.com/infocus/1192
+      http://hiderefer.com/?http://www.owasp.org/index.php/Testing_for_Brute_Force_%28OWASP-AT-004%29
+
+Fuzz results for http://127.0.0.1/dvwa/about.php
+    ***Sensitive Data***
+      admin - 1
+      SQL - 2
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+      http://hiderefer.com/?http://www.linux-ninja.com/
+      http://hiderefer.com/?http://www.dvwa.co.uk/
+      http://hiderefer.com/?http://www.designnewcastle.co.uk/
+      http://hiderefer.com/?http://www.creativenucleus.com/
+      http://hiderefer.com/?http://www.randomstorm.com/
+      http://hiderefer.com/?http://www.ethicalhack3r.co.uk/
+      http://127.0.0.1/dvwa/about.php/instructions.php?doc=PHPIDS-license
+      http://hiderefer.com/?http://php-ids.org/
+      http://hiderefer.com/?http://tedi.heriyanto.net/
+      http://hiderefer.com/?http://www.dvwa.co.uk/forum
+      http://hiderefer.com/?http://www.tmacuk.co.uk/
+      http://hiderefer.com/?http://www.youreadmyblog.info/
+      http://hiderefer.com/?http://dvwa.svn.sourceforge.net/svnroot/dvwa
+
+Fuzz results for http://127.0.0.1/dvwa/security.php
+    ***Sensitive Data***
+      admin - 1
+      SQL - 2
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+      http://127.0.0.1/dvwa/security.php/?test=%22><script>eval(window.name)</script>
+      http://127.0.0.1/dvwa/security.php/ids_log.php
+      http://127.0.0.1/dvwa/security.php/?phpids=on
+
+Fuzz results for http://127.0.0.1/dvwa/phpinfo.php
+    ***Sensitive Data***
+      SQL - 26
+      pass - 4
+      MySQL - 22
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+      http://www.zend.com/
+      http://127.0.0.1/dvwa/phpinfo.php?=PHPB8B5F2A0-3C92-11d3-A3A9-4C7B08C10000
+      http://www.php.net/
+
+Fuzz results for http://127.0.0.1/dvwa/instructions.php
+    ***Sensitive Data***
+      admin - 2
+      SQL - 4
+      password - 2
+      MySQL - 2
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+      http://127.0.0.1/dvwa/instructions.php/?doc=PHPIDS-license
+      http://127.0.0.1/dvwa/instructions.php/?doc=copying
+      http://hiderefer.com/?http://www.gnu.org/licenses/
+      http://127.0.0.1/dvwa/instructions.php/?doc=changelog
+      http://hiderefer.com/?http://127.0.0.1/dvwa/index.php
+      http://hiderefer.com/?http://www.dvwa.co.uk/forum/viewtopic.php?f=5
+      http://127.0.0.1/dvwa/instructions.php/?doc=readme
+      http://hiderefer.com/?http://www.youtube.com/watch?v=GzIj07jt8rM
+      http://hiderefer.com/?http://sourceforge.net/projects/dvwa/
+      http://hiderefer.com/?http://www.dvwa.co.uk
+
+Fuzz results for http://127.0.0.1/dvwa/vulnerabilities/xss_s/
+    ***Sensitive Data***
+      admin - 1
+      SQL - 2
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+      http://hiderefer.com/?http://en.wikipedia.org/wiki/Cross-site_scripting
+      http://hiderefer.com/?http://ha.ckers.org/xss.html
+      http://hiderefer.com/?http://www.cgisecurity.com/xss-faq.html
+
+Fuzz results for http://127.0.0.1/dvwa/vulnerabilities/sqli/
+    ***Sensitive Data***
+      admin - 1
+      SQL - 6
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+      http://hiderefer.com/?http://www.unixwiz.net/techtips/sql-injection.html
+      http://hiderefer.com/?http://en.wikipedia.org/wiki/SQL_injection
+      http://hiderefer.com/?http://www.securiteam.com/securityreviews/5DP0N1P76E.html
+
+Fuzz results for http://127.0.0.1/dvwa/vulnerabilities/xss_r/
+    ***Sensitive Data***
+      admin - 1
+      SQL - 2
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+
+Fuzz results for http://127.0.0.1/dvwa/vulnerabilities/upload/
+    ***Sensitive Data***
+      admin - 1
+      SQL - 2
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+      http://hiderefer.com/?http://blogs.securiteam.com/index.php/archives/1268
+      http://hiderefer.com/?http://www.owasp.org/index.php/Unrestricted_File_Upload
+      http://hiderefer.com/?http://www.acunetix.com/websitesecurity/upload-forms-threat.htm
+
+Fuzz results for http://127.0.0.1/dvwa/vulnerabilities/csrf/
+    ***Sensitive Data***
+      admin - 2
+      password - 7
+      SQL - 2
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+      http://hiderefer.com/?http://en.wikipedia.org/wiki/Cross-site_request_forgery
+      http://hiderefer.com/?http://www.owasp.org/index.php/Cross-Site_Request_Forgery
+      http://hiderefer.com/?http://www.cgisecurity.com/csrf-faq.html
+
+Fuzz results for http://127.0.0.1/dvwa/vulnerabilities/fi/.?page=include.php
+    ***Sensitive Data***
+      admin - 1
+      SQL - 2
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+      http://hiderefer.com/?http://www.owasp.org/index.php/Top_10_2007-A3
+      http://hiderefer.com/?http://en.wikipedia.org/wiki/Remote_File_Inclusion
+
+Fuzz results for http://127.0.0.1/dvwa/vulnerabilities/sqli_blind/
+    ***Sensitive Data***
+      admin - 1
+      SQL - 6
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+
+Fuzz results for http://127.0.0.1/dvwa/setup.php
+    ***Sensitive Data***
+      admin - 1
+      SQL - 2
+      MySQL - 1
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+
+Fuzz results for http://127.0.0.1/dvwa/about.php/instructions.php?doc=PHPIDS-license
+    ***Sensitive Data***
+      admin - 1
+      SQL - 2
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+
+Fuzz results for http://127.0.0.1/dvwa/security.php/?test=%22><script>eval(window.name)</script>
+    ***Sensitive Data***
+      admin - 1
+      SQL - 2
+
+ 
