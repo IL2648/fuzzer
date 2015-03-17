@@ -264,4 +264,138 @@ Fuzz results for http://127.0.0.1/dvwa/security.php/?test=%22><script>eval(windo
       admin - 1
       SQL - 2
 
- 
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+
+Fuzz results for http://127.0.0.1/dvwa/security.php/ids_log.php
+    ***Sensitive Data***
+      admin - 1
+      SQL - 2
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+
+Fuzz results for http://127.0.0.1/dvwa/security.php/?phpids=on
+    ***Sensitive Data***
+      admin - 1
+      SQL - 2
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+      http://127.0.0.1/dvwa/security.php//?phpids=off
+
+Fuzz results for http://127.0.0.1/dvwa/phpinfo.php?=PHPB8B5F2A0-3C92-11d3-A3A9-4C7B08C10000
+    ***Sensitive Data***
+      SQL - 2
+      MySQL - 2
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+
+Fuzz results for http://127.0.0.1/dvwa/instructions.php/?doc=PHPIDS-license
+    ***Sensitive Data***
+      admin - 1
+      SQL - 2
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+      http://hiderefer.com/?http://fsf.org/
+
+Fuzz results for http://127.0.0.1/dvwa/instructions.php/?doc=copying
+    ***Sensitive Data***
+      admin - 1
+      SQL - 2
+      password - 1
+      pass - 1
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+
+Fuzz results for http://127.0.0.1/dvwa/instructions.php/?doc=changelog
+    ***Sensitive Data***
+      admin - 2
+      password - 1
+      SQL - 4
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+      http://hiderefer.com/?http://hiderefer.com
+      http://hiderefer.com/?https://dvwa.svn.sourceforge.net/svnroot/dvwa
+
+Fuzz results for http://127.0.0.1/dvwa/instructions.php/?doc=readme
+    ***Sensitive Data***
+      admin - 2
+      SQL - 4
+      password - 2
+      MySQL - 2
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+
+Fuzz results for http://127.0.0.1/dvwa/security.php//?phpids=off
+    ***Sensitive Data***
+      admin - 1
+      SQL - 2
+
+    ***Parameters Discovered***
+
+    ***Links Discovered***
+
+http://127.0.0.1/dvwa/security.php/:
+    test
+    phpids
+http://127.0.0.1/dvwa/instructions.php/:
+    doc
+http://127.0.0.1/dvwa/security.php//:
+    phpids
+http://127.0.0.1/dvwa/phpinfo.php:
+    
+http://127.0.0.1/dvwa/about.php/instructions.php:
+    doc
+http://127.0.0.1/dvwa/vulnerabilities/fi/.:
+    page
+http://127.0.0.1/dvwa/security.php/:
+    seclev_submit
+http://127.0.0.1/dvwa/security.php/ids_log.php:
+    seclev_submit
+http://127.0.0.1/dvwa/vulnerabilities/exec/:
+    ip
+    submit
+http://127.0.0.1/dvwa/vulnerabilities/brute/:
+    username
+    password
+    Login
+http://127.0.0.1/dvwa/security.php:
+    seclev_submit
+http://127.0.0.1/dvwa/security.php//:
+    seclev_submit
+http://127.0.0.1/dvwa/vulnerabilities/xss_s/:
+    txtName
+    btnSign
+http://127.0.0.1/dvwa/vulnerabilities/sqli/:
+    id
+    Submit
+http://127.0.0.1/dvwa/vulnerabilities/xss_r/:
+    name
+http://127.0.0.1/dvwa/vulnerabilities/upload/:
+    MAX_FILE_SIZE
+    uploaded
+    Upload
+http://127.0.0.1/dvwa/vulnerabilities/csrf/:
+    password_current
+    password_new
+    password_conf
+    Change
+http://127.0.0.1/dvwa/vulnerabilities/sqli_blind/:
+    id
+    Submit
+http://127.0.0.1/dvwa/setup.php:
+    create_db

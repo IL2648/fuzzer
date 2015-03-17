@@ -321,13 +321,19 @@ def pageGuessing(s):
 
 
 def inputDiscoveryPrinting(urlParsingDict, formParsingDict):
-    output("***Inputs parsed through URLS***")
+    print "-----------------------------------------------"
+    print "--------------URL PARSED INPUTS----------------"
+    print "-----------------------------------------------"
     for k, v in urlParsingDict.iteritems():
         output(k + ":")
         for x in range(0, len(v)):
             output("    " + v[x])
 
-    output("***Input Field Names from Forms***")
+    print
+
+    print "-----------------------------------------------"
+    print "-------------FORM PARSED INPUTS----------------"
+    print "-----------------------------------------------"
     for m, n in formParsingDict.iteritems():
         output(m + ":")
         for y in range(0, len(n)):
@@ -408,8 +414,14 @@ def checkResponse(r):
 
 currentMilliTime = lambda: int(round(time.time() * 1000))
 def sanitization(s):
+    print "-----------------------------------------------"
+    print "---------------CHECKING INPUTS-----------------"
+    print "-----------------------------------------------"
     checkForms(s)
     checkURLs(s)
+    print "-----------------------------------------------"
+    print "---------------CHECK FINISHED------------------"
+    print "-----------------------------------------------"
 
 def checkForms(s):
     with open(args['vectors']) as f:
@@ -422,10 +434,14 @@ def checkForms(s):
             #url = url + e + "=<>\\\"&"
             for vect in vectors:
                 url = url + e + vect
+                print "[Input URL: " + url + "]"
+
                 start = currentMilliTime()
                 r = s.post(url)
                 finish = currentMilliTime()
                 if(finish - start > args["slow"]):
+                    finalTime = finish - start
+                    print "Slow Response of: " + str(finalTime)
                     slowLog.append((url,finish-start))
                 isSanitized(r)
                 checkResponse(r)
@@ -441,22 +457,30 @@ def checkURLs(s):
             #url = url + e + "=<>\\\"&"
             for vect in vectors:
                 url = url + e + vect
+                print "[Input URL: " + url + "]"
+
                 start = currentMilliTime()
                 r = s.get(url)
                 finish = currentMilliTime()
                 if(finish - start > args['slow']):
+                    finalTime = finish - start
+                    print "Slow Response of: " + str(finalTime)
                     slowLog.append((url,finish-start))
                 isSanitized(r)
                 checkResponse(r)
 
 def isSanitized(r):
+    print "[Response URL: " + r.url + "]"
     with open(args['vectors']) as f:
         if (f):
             vectors = f.read().splitlines()
     for vect in vectors:
         if vect in r.url:
+            print "VECTOR PRESENT - " + vect
             unsanitized.append(r.url)
             break
+
+    print
 
 def checkResponse(r):
     if( r.status_code >= 300 ):
