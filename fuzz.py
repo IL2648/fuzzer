@@ -205,11 +205,12 @@ def linkDiscovery(url, response):
     urlParts = urlparse.urlparse(url)
     for tag in html.findAll('a'):
         link = tag.get('href')
-        if link is None:
+        if link is None:    #Skip tags which have no href
             continue
+
         link = link.rstrip('.') #remove all trailing periods
 
-        if link is None: #If link doesn't contain anything, then there is no href. Move on.
+        if link == '' :   #Skip empty strings
             continue
 
         # Make the link a Fully Qualified Path (FQP)
