@@ -14,7 +14,19 @@ In order to setup the fuzzer follow these instructions (using python 2.7 if poss
 
 5.) Run the command <code>python setup.py install</code>
 
-6.) This is to install the "Beautifulsoup" library. Download the zip file for master from <a href="https://github.com/bdoms/beautifulsoup">here</a>
+6.) Now we need to install the BeautifulSoup4 library. Try the following:
+
+	6.1)$ apt-get install python-bs4
+	6.2)$ easy_install beautifulsoup4
+	6.3)$ pip install beautifulsoup4
+	6.4)From the source tarball...
+		6.4.1)Download from link below
+http://www.crummy.com/software/BeautifulSoup/bs4/download/4.0/ 
+		6.4.2)Extract tarball
+		6.4.3)Navigate to extraction point
+		6.4.4)Install with setup.py->$ python setup.py install
+
+//Source: http://www.crummy.com/software/BeautifulSoup/bs4/doc/#installing-beautiful-soup
 
 7.) Unzip the file you just downloaded
 
