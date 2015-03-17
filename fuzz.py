@@ -8,6 +8,7 @@ from bs4 import BeautifulSoup
 import urlparse
 import sys
 import time
+import random
 import unicodedata
 # Comments Regarding imports
 #
@@ -27,8 +28,12 @@ links = []
 explored = {}
 touchedHrefs = []
 urlInputs = []
+
 urlInputDict = {}
 formInputDict = {}
+checkedUrlDict = {}
+checkedFormDict = {}
+
 words = []
 unsanitized = []
 statusCodeLog = []
@@ -87,7 +92,7 @@ def main():
         elif (argval[0] == "--sensitive"):
             args['sensitive'] = argval[1]
         elif (argval[0] == "--random"):
-            args['random'] = argval[1]
+            args['random'] = argval[1].lower()
         elif (argval[0] == "--slow"):
             args['slow'] = argval[1]
 
@@ -96,13 +101,28 @@ def main():
         sys.exit()
 
     if args['mode'] == 'test':
-        if not args['vectors']:
+        if not args['vectors']: #Check --vectors option
             output("Please ensure the --vectors variable is set")
             output("Format: --vectors=[YourFileName]")
             sys.exit()
-        if not ['sensitive']:
+        if not ['sensitive']:   #Check --sensitive option
             output("Please ensure the --sensitive variable is set")
             output("Format: --sensitive=[YourFileName]")
+            sys.exit()
+
+        try:
+            with open(args['vectors']) as f: #Ensure we can open file
+                f.close()
+        except:
+            output("Could not open the vectors file")
+        try:
+            with open(args['sensitive']) as f: #Ensure we can open file
+                f.close()
+        except:
+            output("Could not open the sensitive file")
+
+        if args['random'] not in 'true' and args['random'] not in 'false':  #Check --random option
+            print "Exiting... --random option must be either 'true' or 'false'. It is set to false by default"
             sys.exit()
 
     args['url'] = sys.argv[2]
@@ -129,17 +149,6 @@ def main():
     #pageGuessing(s)
 
     if args['mode'] == 'test':
-
-        try:
-            with open(args['vectors']) as f:
-                f.close()
-        except:
-            output("Could not open the vectors file")
-        try:
-            with open(args['sensitive']) as f:
-                f.close()
-        except:
-            output("Could not open the sensitive file")
 
         sanitization(s)
 
@@ -270,9 +279,6 @@ def linkDiscovery(url, response):
             link = urlParts[0] + '://' + urlParts[1] + urlParts[2] + '/' + link
             #link = url + '/' + link
             #Putting the "Broken" code back in, just in case I'm wrong and it was fine.
-        #else:
-        #     # Assume that it is a good link missing the / because that form is still valid.
-        #     link = urlParts[0] + '://' + urlParts[1] + "/" + link
 
         # Add the link, set 1 if in domain and not a "file"
         if urlParts.hostname == urlparse.urlparse(str(link)).hostname and not link.lower().endswith(EXT):
@@ -383,6 +389,36 @@ def formParameters(s, url, dict):
 def cookies(s):
     return s.cookies
 
+# def randomSelection():
+#
+#     newUrlInputDict = {}
+#     newFormInputDict = {}
+#     for k, v in urlInputDict.iteritems():
+#         if random.randint(0,100) < 50:
+#             newUrlInputDict[k] = urlInputDict.get(k)
+#             print "Keeping " + k
+#
+#     for k, v in newUrlInputDict.iteritems():
+#         for input in v:
+#             if random.randint(0,100) < 50:
+#                 v.remove(input)
+#                 print "Removing " + input
+#
+#     for k, v in formInputDict.iteritems():
+#         if random.randint(0,100) < 50:
+#             newFormInputDict[k] = formInputDict.get(k)
+#             print "Keeping  " + k
+#
+#     for k, v in newFormInputDict.iteritems():
+#         for input in v:
+#             if random.randint(0,100) < 50:
+#                 v.remove(input)
+#                 print "Removing " + input
+#
+#     checkedUrlDict = newUrlInputDict
+#     checkedFormDict = newFormInputDict
+
+
 
 def checksensitivedata(response):
     output("    ***Sensitive Data***")
@@ -431,11 +467,14 @@ def checkForms(s):
     for k, v in formInputDict.items():
         url = k + "?"
         for e in v:
+            if (args['random'])== 'true' and random.randint(0,100) < 50:
+                print "skipping " + url + e
+                print
+                continue
             #url = url + e + "=<>\\\"&"
             for vect in vectors:
                 url = url + e + vect
                 print "[Input URL: " + url + "]"
-
                 start = currentMilliTime()
                 r = s.post(url)
                 finish = currentMilliTime()
@@ -454,6 +493,10 @@ def checkURLs(s):
     for k, v in urlInputDict.items():
         url = k + "?"
         for e in v:
+            if (args['random'])== 'true' and random.randint(0,100) < 50:
+                print "skipping " + url + e
+                print
+                continue
             #url = url + e + "=<>\\\"&"
             for vect in vectors:
                 url = url + e + vect
